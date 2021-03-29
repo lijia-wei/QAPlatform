@@ -1,0 +1,145 @@
+@import './normalize.css';
+@import './base.css';
+
+/* 登录界面 */
+body{
+  background-image: url(../../assets/img/login/background.jpg);
+  background-size:cover;
+}
+.sign-in-box{
+  position: relative;
+  margin: 90px 10%;
+  background-color: #ffffff80;
+  height: 450px;
+  width: 400px;
+  border-radius: 8%;
+  box-shadow: 0 5px 7px 0 rgba(104, 101, 101, 0.5);
+}
+.sign-in-box span{
+    text-align: center;
+    top: 15%;
+    position: relative;
+    display: block;
+    width: 100%;
+    color: rgb(26, 22, 80); 
+    font-size: 30px;
+    margin-bottom: 5%;
+}
+.sign-in-box .regi, .sign-in-box .login{
+  text-align: center;
+  top: 19%;
+  position: relative;
+  width: 100%;
+  color: rgb(245, 240, 238); 
+  font-size: 13px;
+}
+.sign-in-box .in{
+  top: 20%;
+  height: 40%;
+  width: 100%;
+  position: relative;
+}
+.in input{
+  width: 70%;
+  display: block;
+  position: absolute;
+  left: 15%;
+  height: 20%;
+  border: none;
+  border-radius: 5px;
+  padding-left: 1%;
+}
+.in input:nth-child(1){
+  top: 7%;
+}
+.in input:nth-child(2){
+  top: 40%;
+}
+
+button{
+  display: block;
+  height: 9%;
+  width: 26%;
+  background-color: azure;
+  border: none;
+  font-size: 15px;
+  border-radius: 5px;
+  bottom: 18%;
+  left: 38%;
+  position: absolute;
+}
+.sign-in-box .findpass,.sign-in-box .login{
+  left: 22%;
+  bottom: 20%;
+  position: absolute;
+
+  color: black; 
+  font-size: 13px;
+}
+.sign-in-box .findpass:hover, .sign-in-box .regi:hover,.sign-in-box .login:hover{
+    color: rgb(57, 68, 173);
+}
+
+/* 注册界面--------------------------------------------------- */
+.sign-in-box .regi{
+  text-align: center;
+  top: 15%;
+  position: relative;
+  display: block;
+  width: 100%;
+  color: rgb(245, 240, 238); 
+  font-size: 13px;
+}
+.sign-in-box .in-regi{
+  top: 18%;
+  height: 40%;
+  width: 100%;
+  position: relative;
+}
+span.regiline{
+  top: 10%;
+}
+.in-regi input, .get{
+  width: 70%;
+  display: block;
+  position: absolute;
+  left: 15%;
+  height: 20%;
+  border: none;
+  border-radius: 5px;
+  padding-left: 1%;
+}
+.in-regi input:nth-child(1){
+  top: -8%;
+}
+.in-regi input:nth-child(2){
+  top: 18%;
+}
+.in-regi input:nth-child(3){
+  top: 44%;
+}
+.get{
+ top:71%;
+}
+.get input{
+  width: 65%;
+  left: 0;
+  height: 100%;
+}
+.in-regi input:nth-child(5){
+  top: 95%;
+}
+.sendver{
+  width:32%;
+  height: 100%;
+  position: absolute;
+  left: 68%;
+  padding: 0;
+  top: -1%;
+}
+.sign-in-box .agree{
+  bottom: 15%;
+}
+.regist{
+  bottom: 5%;
+}
