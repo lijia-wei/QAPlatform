@@ -2,8 +2,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Login from '../views/Login'
-import Register from '../views/Register'
+import index from '../views/index'
+// import login from '../views/login'
+// import register from '../views/register'
 // import User from '../components/User'
 // import Profile from '../components/Profile'
 
@@ -15,13 +16,13 @@ const routes = [
   {
     path: '',
     //重定向
-    redirect: '/login' 
+    redirect: '/index' 
   },
   {
-    path: '/login',
-    component: Login,
+    path: '/index',
+    component: index,
     meta:{
-      title: '登录'
+      title: '首页'
     }
   },
   // {
@@ -34,13 +35,13 @@ const routes = [
   //     next()
   //   }
   // },
-  {
-    path: '/register',
-    component: Register,
-    meta:{
-      title: '注册'
-    }
-  },
+  // {
+  //   path: '/register',
+  //   component: Register,
+  //   meta:{
+  //     title: '注册'
+  //   }
+  // },
 ]
 
 const router = new VueRouter({

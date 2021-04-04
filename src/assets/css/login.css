@@ -15,7 +15,7 @@ body{
   border-radius: 8%;
   box-shadow: 0 5px 7px 0 rgba(104, 101, 101, 0.5);
 }
-.sign-in-box span{
+.sign-in-box span{   
     text-align: center;
     top: 15%;
     position: relative;

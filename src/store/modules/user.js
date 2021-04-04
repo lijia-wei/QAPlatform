@@ -39,8 +39,9 @@ const mutations = {
     },
 }
 const actions = {
-    setUserInfo({ commit }, data) {
-        commit('SET_USERINFO', data)
+    //这里的context是该模块中的，不再代表$store
+    setUserInfo(context, data) {
+        context.commit('SET_USERINFO', data)
     },
     changeislog({ commit }) {
         commit('CHANGE_ISLOG')
