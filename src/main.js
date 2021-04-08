@@ -10,6 +10,7 @@ import '@/assets/css/green-skin5152.css'
 import '@/assets/css/main5152.css'
 import '@/assets/css/red-skin5152.css'
 import '@/assets/css/responsive5152.css'
+import '@/assets/css/login.css'
 import './plugin/element-ui'
 import ElementUI from 'element-ui';
 import '@/assets/css/ali.css'

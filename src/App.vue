@@ -9,13 +9,12 @@
 export default {
   name: 'App',
   components: {
-    
   }
 }
 </script>
 
 <style>
-  #nav {
+/* #nav {
   padding: 30px;
 }
 
@@ -26,5 +25,5 @@ export default {
 
 #nav a.router-link-exact-active {
   color: #42b983;
-}
-</style>
+} */
+</style scoped>

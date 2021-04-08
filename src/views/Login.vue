@@ -1,4 +1,5 @@
 <template>
+<div class="login">
   <div class="sign-in-box clearfix">
     <span>账 号 登 录</span>
     <router-link to="/register" class="regi">没有账号？去注册</router-link>
@@ -9,6 +10,8 @@
     <button @click="login" class="loginbtn">登录</button>
     <!-- <a href="findPassword.html" class="findpass">找回密码</a> -->
   </div>
+</div>
+  
 </template>
 
 <script>
@@ -59,11 +62,16 @@ export default {
           this.$message(e);
         });
     }
-  }
-
+  },
+  
 }
 </script>
 
-<style>
-  @import url(../assets/css/login.css);
+<style scoped>
+.login{
+  background-image: url(../assets/images/background.jpg);
+  background-size: cover;
+  height: 630px;
+  padding-top: 1px;
+}
 </style>

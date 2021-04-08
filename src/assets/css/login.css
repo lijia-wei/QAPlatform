@@ -2,10 +2,6 @@
 @import './base.css';
 
 /* 登录界面 */
-body{
-  background-image: url(../../assets/img/login/background.jpg);
-  background-size:cover;
-}
 .sign-in-box{
   position: relative;
   margin: 90px 10%;
@@ -104,7 +100,7 @@ span.regiline{
   display: block;
   position: absolute;
   left: 15%;
-  height: 20%;
+  height: 15%;
   border: none;
   border-radius: 5px;
   padding-left: 1%;
@@ -124,18 +120,18 @@ span.regiline{
 .get input{
   width: 65%;
   left: 0;
-  height: 100%;
+  height: 110%;
 }
 .in-regi input:nth-child(5){
   top: 95%;
 }
 .sendver{
   width:32%;
-  height: 100%;
+  height: 115%;
   position: absolute;
   left: 68%;
   padding: 0;
-  top: -1%;
+  top: -8%;
 }
 .sign-in-box .agree{
   bottom: 15%;

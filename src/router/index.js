@@ -3,8 +3,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import index from '../views/index'
-// import login from '../views/login'
-// import register from '../views/register'
+import login from '../views/login'
+import register from '../views/register'
 // import User from '../components/User'
 // import Profile from '../components/Profile'
 
@@ -13,35 +13,9 @@ Vue.use(VueRouter)
 
 //3.创建VueRouter对象
 const routes = [
-  {
-    path: '',
-    //重定向
-    redirect: '/index' 
-  },
-  {
-    path: '/index',
-    component: index,
-    meta:{
-      title: '首页'
-    }
-  },
-  // {
-  //   path: '/register',
-  //   component: Register,
-  //   meta:{
-  //     title: '注册'
-  //   },
-  //   beforeEnter: (to, from, next) => {
-  //     next()
-  //   }
-  // },
-  // {
-  //   path: '/register',
-  //   component: Register,
-  //   meta:{
-  //     title: '注册'
-  //   }
-  // },
+  { path: '/', component: index, meta:{title: '首页'}}, 
+  { path: '/register', component: register, meta:{title: '注册'} },
+  { path: '/login', component: login, meta:{title: '登录'} },
 ]
 
 const router = new VueRouter({

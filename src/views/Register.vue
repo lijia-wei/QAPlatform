@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    <div class="sign-in-box clearfix">
+<div class="register">
+  <div class="sign-in-box clearfix">
     <span class="regiline">欢 迎 注 册</span>
     <router-link to="/login" class="login">已有账号？去登录</router-link>
     <div class="in-regi">
@@ -20,6 +20,7 @@
     <button type="submit" @click="registered" class="regist">注册</button>
   </div>
 </div>
+    
 </template>
 
 <script>
@@ -122,6 +123,11 @@ export default {
 
 </script>
 
-<style>
-  @import url(../assets/css/login.css);
+<style scoped>
+  .register{
+    background-image: url(../assets/images/background.jpg);
+    background-size: cover;
+    height: 6px;
+    padding-top: 1px;
+}
 </style>
