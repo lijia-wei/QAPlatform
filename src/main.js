@@ -1,26 +1,22 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import App from '@/App.vue'
-import router from '@/router/index'
-import store from '@/store/index'
+import App from './App.vue'
+import router from './router'
+import store from './store'
 
-import 'assets/css/blue-skin5152.css'
-import 'assets/css/bootstrap5152.css'
-import 'assets/css/green-skin5152.css'
-import 'assets/css/main5152.css'
-import 'assets/css/red-skin5152.css'
-import 'assets/css/responsive5152.css'
-import 'assets/css/login.css'
-import 'plugin/element-ui'
+import '@/assets/css/blue-skin5152.css'
+import '@/assets/css/bootstrap5152.css'
+import '@/assets/css/green-skin5152.css'
+import '@/assets/css/main5152.css'
+import '@/assets/css/red-skin5152.css'
+import '@/assets/css/responsive5152.css'
+import '@/assets/css/login.css'
+import './plugin/element-ui'
 import ElementUI from 'element-ui';
-import 'assets/css/ali.css'
+import '@/assets/css/ali.css'
+
 
 Vue.use(Vuex)  
-
-//cookie引入
-import cookie from 'vue-cookie'
-Vue.prototype.$cookie = cookie; 
-axios.defaults.withCredentials = true;    //让vue能使用axios不能携带cookie
 
 // aiox需要的包
 import axios from 'axios'
