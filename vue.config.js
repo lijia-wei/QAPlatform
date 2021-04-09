@@ -13,7 +13,6 @@ module.exports = {
   }
 }
 const webpack = require('webpack')
-
 module.exports = {
   outputDir:  "./dist",
   publicPath: './',
@@ -28,12 +27,7 @@ module.exports = {
     ],
     module: {
       rules: [
-        // {
-        //   test: /\.css$/,
-        //   use: ['style-loader',
-        //         'css-loader'
-        //       ]
-        // },
+
         {
           test: /\.(png|jpg|gif)$/,
           use: [
