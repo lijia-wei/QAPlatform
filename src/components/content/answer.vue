@@ -19,7 +19,7 @@ export default {
   data() {
     return {
       index: 1,  
-      all: 100,  //总页数
+      all: 2,  //总页数
       cur: 1,    //当前页数
       tolalPage: 0,  //当前条数
     }

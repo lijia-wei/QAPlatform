@@ -15,6 +15,10 @@ import './plugin/element-ui'
 import ElementUI from 'element-ui';
 import '@/assets/css/ali.css'
 
+//cookie引入
+import cookie from 'vue-cookie'
+Vue.prototype.$cookie = cookie; 
+axios.defaults.withCredentials = true;    //让vue能使用axios不能携带cookie
 
 Vue.use(Vuex)  
 
@@ -26,10 +30,6 @@ axios.defaults.baseURL = 'http://47.108.190.196/QAPlatform';
 Vue.prototype.$axios = axios;
 //为post请求设置默认请求头
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-
-//vue2中使用axios，我们请求的参数仍为json类型，是并没有序列化的。我们需要使用querystring解决该问题
-// import qs from 'qs';
-// Vue.prototype.qs = qs;
 
 Vue.config.productionTip = false
 
