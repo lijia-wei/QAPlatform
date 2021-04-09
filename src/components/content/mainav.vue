@@ -16,7 +16,7 @@
                   <a>首页</a>
                 </router-link>
                 <router-link to="/help" tag="li" exact-active-class="current-menu-item">
-                  <a>在线提问</a>
+                  <a>收藏</a>
                 </router-link>
                 <router-link to="/activity" tag="li" exact-active-class="current-menu-item">
                   <a>关注</a>
@@ -35,7 +35,7 @@
               </ul>
             </div>
 
-            <!-- Response window drop - down box 响应式-->
+            <!-- Response window drop - down box -->
             <select
               v-model="selected"
               @change="changeHref(parseInt(selected))"
@@ -43,9 +43,10 @@
             >
               <option value="1">首页</option>
               <option value="2">在线提问</option>
-              <option value="3">关注</option>
-              <option value="4">个人中心</option>
-              <option value="5">登录/注册</option>
+              <option value="3">收藏</option>
+              <option value="4">关注</option>
+              <option value="5">个人中心</option>
+              <option value="6">登录/注册</option>
             </select>
           </nav>
           <!-- End of Main Navigation -->
@@ -65,9 +66,9 @@ export default {
   methods: {
      changeHref(sortnum) {
       switch (sortnum) {
-        // case 1:
-        //   this.$router.push({ path: "/" });
-        //   break;
+        case 1:
+          this.$router.push({ path: "/" });
+          break;
         // case 2:
         //   this.$router.push({ path: "/help" });
         //   break;
@@ -77,12 +78,12 @@ export default {
         // case 4:
         //   this.$router.push({ path: "/job" });
         //   break;
+        case 6:
+          this.$router.push({ path: "/login" });
+          break;
         // case 6:
-        //   this.$router.push({ path: "/login" });
-        //   break;
-        // case 6:
-        //   this.close();
-        //   break;
+          // this.close();
+          // break;
       }
     },
   }

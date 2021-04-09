@@ -6,6 +6,7 @@ import index from '../views/index'
 import login from '../views/Login'
 import register from '../views/Register'
 import personal from '../views/personalCenter/PersonalCenter'
+
 // import User from '../components/User'
 // import Profile from '../components/Profile'
 
@@ -23,7 +24,7 @@ const routes = [
 const router = new VueRouter({
   //4.配置路由和组件之间的应用关系
   routes,
-  // mode: 'history'
+  mode: 'history'
 })
 
 //全局导航守卫,前置首位(guard)
