@@ -3,8 +3,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import index from '../views/index'
-import login from '../views/login'
-import register from '../views/register'
+import login from '../views/Login'
+import register from '../views/Register'
+import personal from '../views/personalCenter/PersonalCenter'
 // import User from '../components/User'
 // import Profile from '../components/Profile'
 
@@ -16,6 +17,7 @@ const routes = [
   { path: '/', component: index, meta:{title: '首页'}}, 
   { path: '/register', component: register, meta:{title: '注册'} },
   { path: '/login', component: login, meta:{title: '登录'} },
+  { path: '/personal', component: personal, meta:{title: '个人中心'} },
 ]
 
 const router = new VueRouter({
