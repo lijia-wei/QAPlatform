@@ -2,8 +2,8 @@ const state = {
     islog: true,
     islogin: true,
     isclose: false,
-    userinfo: JSON.parse(localStorage.getItem("userinfo")) || {avatar:''},//先去localStorage中获取数据
-    unread: 0
+    // userinfo: JSON.parse(localStorage.getItem("userinfo")) || {avatar:''},//先去localStorage中获取数据
+    // unread: 0
 
 }
 const getters = {

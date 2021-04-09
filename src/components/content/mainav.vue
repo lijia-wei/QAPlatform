@@ -35,7 +35,7 @@
               </ul>
             </div>
 
-            <!-- Response window drop - down box -->
+            <!-- Response window drop - down box 响应式-->
             <select
               v-model="selected"
               @change="changeHref(parseInt(selected))"
@@ -43,10 +43,9 @@
             >
               <option value="1">首页</option>
               <option value="2">在线提问</option>
-              <option value="3">收藏</option>
-              <option value="4">关注</option>
-              <option value="5">个人中心</option>
-              <option value="6">登录/注册</option>
+              <option value="3">关注</option>
+              <option value="4">个人中心</option>
+              <option value="5">登录/注册</option>
             </select>
           </nav>
           <!-- End of Main Navigation -->
