@@ -30,7 +30,23 @@
     <!-- Main Content -->
     <answer/>  
     <!-- End Content -->
-    
+    <el-input
+      type="text"
+      placeholder="请输入内容"
+      v-model="text"
+      maxlength="40"
+      show-word-limit
+    >
+    </el-input>
+    <div style="margin: 20px 0;"></div>
+    <el-input
+      type="textarea"
+      placeholder="请输入内容"
+      v-model="textarea"
+      maxlength="2000"
+      show-word-limit
+    >
+    </el-input>
 
     <!-- start of foot -->
     <foot/>
@@ -57,18 +73,19 @@ export default {
       password1: "",
       username: "",
       hover: false,
-      search: ""
+      search: "",
+      text: '',
+      textarea: ''
     };
   },
-  // computed: {
-  //   ...mapState({
-  //     isclose: state => state.user.isclose,
-  //     islogin: state => state.user.islogin,
-  //     avatar: state => state.user.userinfo.avatar,
-  //     nickname: state => state.user.userinfo.nickname,
-  //     unread: state => state.user.unread
-  //   })
-  // },
+  computed: {
+    ...mapState({
+      isclose: state => state.user.isclose,
+      islogin: state => state.user.islogin,
+      avatar: state => state.user.userinfo.avatar,
+      // nickname: state => state.user.userinfo.nickname,
+    })
+  },
   methods: {
     ...mapActions("user", [
       "setUserInfo",

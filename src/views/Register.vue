@@ -11,7 +11,7 @@
           <input type="e-mail" v-model="e_mail" name="e-mail" placeholder="邮箱" maxlength="20">
           <button class="sendver" @click="sendVerify">{{timecount}}</button>
       </div>
-      <input type="text" v-model="verification" name="verification" placeholder="验证码" maxlength="4">
+      <input type="text" v-model="verification" name="verification" placeholder="验证码">
     </div>
     <div class="agree findpass">
         <input type="radio">
@@ -67,7 +67,9 @@ export default {
       })
       .then(res => {
           let data = res.data;
-          alert(res);
+          if (res.data.state == 200) {
+            this.$message.success("发送成功！");
+          }
           // this.countDown();
            
         })
@@ -77,46 +79,45 @@ export default {
     },
 
     registered() {
-    //   const userReg = /^[1-9a-zA-Z]{1}[0-9a-zA-Z]{5,9}$/; //6-10位字母数字
-    //   const pwdReg = /^[a-zA-Z]\w{5,17}$/; //6-18位字母数字下划线 字母开头
-    //   if (!userReg.test(this.username)) {
-    //     this.$message.error("账号为6-10位字母数字字母");
-    //     return;
-    //   }
-    //   if (!pwdReg.test(this.password)) {
-    //     this.$message.error("密码为6-18位字母数字或下划线 字母开头");
-    //     return;
-    //   }
-    //   let obj = {
-    //     password: this.password,
-    //     username: this.username,
-    //     pet_name: this.pet_name,
-    //     e_mail: this.e_mail,
-    //     verification: this.verification,
-    //   };
-    //   this.$axios({
-    //     url: "/user/register/"+this.verification,
-    //     method: "POST",
-    //     headers: {'Content-Type': 'application/json;charset=UTF-8'},
-    //     data: JSON.stringify(obj)
-    //   })
-    //     .then(res => {
-    //       let data = res.data.data;
-    //       alert(data);
-          // if (data.state.type !== "SUCCESS") {
-          //   if (data.state.type == "ERROR_PARAMS_EXIST") {
-          //     this.$message.error("用户名重复");
-          //   } else {
-          //     this.$message.error("注册失败");
-          //   }
-          //   return;
-          // }
-          // this.$message.success("注册成功请登录");
-          // this.join();
-        // })
-        // .catch(e => {
-        //   this.$message.error(e);
-        // });
+      const userReg = /^[1-9a-zA-Z]{1}[0-9a-zA-Z]{5,9}$/; //6-10位字母数字
+      const pwdReg = /^[a-zA-Z]\w{5,17}$/; //6-18位字母数字下划线 字母开头
+      if (!userReg.test(this.username)) {
+        this.$message.error("账号为6-10位字母数字字母");
+        return;
+      }
+      if (!pwdReg.test(this.password)) {
+        this.$message.error("密码为6-18位字母数字或下划线 字母开头");
+        return;
+      }
+      let obj = {
+        password: this.password,
+        username: this.username,
+        petName: this.pet_name,
+        email: this.e_mail,
+      };
+      this.$axios({
+        url: "/user/register/"+this.verification,
+        method: "POST",
+        headers: {'Content-Type': 'application/json;charset=UTF-8'},
+        data: JSON.stringify(obj)
+      })
+        .then(res => {
+          let data = res.data.data;
+          alert(data);
+          if (res.data.state != 200) {
+            // if (data.state.type == "ERROR_PARAMS_EXIST") {
+            //   this.$message.error("用户名重复");
+            // } else {
+            //   this.$message.error("注册失败");
+            // }
+            // return;
+          }
+          this.$message.success("注册成功请登录");
+          this.join();
+        })
+        .catch(e => {
+          this.$message.error(e);
+        });
     },
   }
 }
@@ -127,7 +128,7 @@ export default {
   .register{
     background-image: url(../assets/images/background.jpg);
     background-size: cover;
-    height: 6px;
-    padding-top: 1px;
+    height: 630px;
+    padding-top: 1px; 
 }
 </style>
