@@ -8,7 +8,7 @@
       </div>
 
       <user-header-intro>
-        <div class="header-intro-ID" slot="id">LiXenon</div>
+        <div class="header-intro-ID" slot="id">{{ user.username }}</div>
         <div class="header-intro-introduction" slot="introduction">
           世界如此美好，我却如此浮躁，这样不好，这样不好。
         </div>
@@ -22,7 +22,7 @@
         </user-intro-item>
         <user-intro-item url="/index">
           <div class="header-intro-achivement-count" slot="count">88</div>
-          <div class="header-intro-achivement-title" slot="title">回答</div>
+          <div class="header-intro-achivement-title" slot="title">收藏</div>
         </user-intro-item>
         <user-intro-item url="/index">
           <div class="header-intro-achivement-count" slot="count">88</div>
@@ -37,6 +37,12 @@ import UserHeaderIntro from "@/components/common/personalCenter/userHeader/UserH
 import UserIntroItem from "@/components/common/personalCenter/userHeader/UserIntroItem";
 export default {
   name: 'UserHeader',
+  props: {
+    user: {
+      type: Object,
+      default: null
+    }
+  },
   components: {
     UserHeaderIntro,
     UserIntroItem

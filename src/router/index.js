@@ -17,7 +17,7 @@ const routes = [
   { path: '/', component: index, meta:{title: '首页'}}, 
   { path: '/register', component: register, meta:{title: '注册'} },
   { path: '/login', component: login, meta:{title: '登录'} },
-  { path: '/personal', component: personal, meta:{title: '个人中心'} },
+  { path: '/job', component: personal, meta:{title: '个人中心'} },
 ]
 
 const router = new VueRouter({
