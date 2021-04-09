@@ -1,7 +1,7 @@
-module.exports={
-  configureWebpack:{
-    resolve:{
-      alias:{
+module.exports = {
+  configureWebpack: {
+    resolve: {
+      alias: {
         'assets': '@/assets',
         'common': '@/common',
         'network': '@/network',
@@ -13,15 +13,39 @@ module.exports={
   }
 }
 const webpack = require('webpack')
- 
+
 module.exports = {
-    configureWebpack: {
+  outputDir:  "./dist",
+  publicPath: './',
+  configureWebpack: {
+    entry: __dirname + '/src/main.js',
     plugins: [
       new webpack.ProvidePlugin({
-            $:"jquery",
-            jQuery:"jquery",
-            "windows.jQuery":"jquery"
-        })
-    ]
+        $: "jquery",
+        jQuery: "jquery",
+        "windows.jQuery": "jquery"
+      })
+    ],
+    module: {
+      rules: [
+        // {
+        //   test: /\.css$/,
+        //   use: ['style-loader',
+        //         'css-loader'
+        //       ]
+        // },
+        {
+          test: /\.(png|jpg|gif)$/,
+          use: [
+            {
+              loader: 'url-loader',
+              options: {
+                limit: 8192
+              }
+            }
+          ]
+        }
+      ]
+    }
   }
 }
