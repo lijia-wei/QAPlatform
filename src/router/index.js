@@ -21,7 +21,7 @@ const routes = [
 const router = new VueRouter({
   //4.配置路由和组件之间的应用关系
   routes,
-  mode: 'history'
+  // mode: 'history'
 })
 
 //全局导航守卫,前置首位(guard)

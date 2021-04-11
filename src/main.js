@@ -4,16 +4,14 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-import '@/assets/css/blue-skin5152.css'
 import '@/assets/css/bootstrap5152.css'
-import '@/assets/css/green-skin5152.css'
 import '@/assets/css/main5152.css'
-import '@/assets/css/red-skin5152.css'
 import '@/assets/css/responsive5152.css'
 import '@/assets/css/login.css'
 import './plugin/element-ui'
 import ElementUI from 'element-ui';
 import '@/assets/css/ali.css'
+import 'font-awesome/css/font-awesome.min.css'
 
 //cookie引入
 import cookie from 'vue-cookie'

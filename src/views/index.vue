@@ -26,11 +26,13 @@
     </div>
 
     <!-- Main Content -->
-    <problemList/>  
+    <problem-list/>  
 
     <!-- Post questions -->
+    
     <div class="post-container">
-      <p>在线提问</p>
+      <hr/>
+      <p><i class="fa fa-pencil-square"></i>在线提问</p>
       <div class="post">
         <el-input
           type="text"
@@ -92,6 +94,9 @@ export default {
     foot,
     mainav,
     problemList,
+  },
+  mounted(){
+    console.log(this.islogin);
   },
   // 辅助函数也一样，获取user模块中的mutations方法
   methods: {

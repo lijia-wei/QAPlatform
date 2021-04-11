@@ -8,7 +8,7 @@ a:hover {
 }
 
 blockquote {
-  background: whitesmoke url("../images/quote.png") no-repeat 20px 25px;
+  background: whitesmoke url("../../assets/images/quote.png") no-repeat 20px 25px;
   border: 1px solid #e8e8e8;
   padding: 20px 20px 20px 60px;
   color: #6f7579;
@@ -44,7 +44,7 @@ blockquote p {
   height: 40px;
 }
 .logo-img{
-  background: url('../logo.png');
+  background: url('../../assets/logo.png');
   height: 60px;
   width: 60px;
   display: block;
@@ -147,7 +147,7 @@ span.tag-line {
 
 /* Header - Search ---------------------------------------------------------------------------------------------------*/
 .search-area-wrapper {
-  background: #353b65 url("../images/main-bg.jpg") center top no-repeat;
+  background: #353b65 url("../../assets/images/main-bg.jpg") center top no-repeat;
   background-size: 100%;
   min-height: 279px;
   height: auto !important;
@@ -197,7 +197,7 @@ form.search-form input.search-term {
   margin-bottom: 0;
 }
 form.search-form input.search-term.loading {
-  background-image: url("../images/search-loader.gif");
+  background-image: url("../../assets/images/search-loader.gif");
   background-repeat: no-repeat;
   background-position: 98% 50%;
 }
@@ -348,6 +348,12 @@ a img.aligncenter {
 /* Post questions-------------------------------------------------------------------------------------------- */
 .post-container{
   width: 100%;
+  margin-top: 12em;
+}
+.post-container hr {
+  width: 80%;
+  margin: 1em  auto 3em auto ;
+  border: #a68f99 solid 1px;
 }
 .post-container p{
   font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
