@@ -16,7 +16,7 @@
                   <a>首页</a>
                 </router-link>
                 <router-link to="/help" tag="li" exact-active-class="current-menu-item">
-                  <a>收藏</a>
+                  <a>我的提问</a>
                 </router-link>
                 <router-link to="/activity" tag="li" exact-active-class="current-menu-item">
                   <a>关注</a>
@@ -28,10 +28,12 @@
                   <a>关于我们</a>
                 </router-link>
 
-                <li v-if="true">
+                <li v-if="!islogin">
                   <router-link to="/login">登录/注册</router-link>
                 </li>
-   
+                <li v-else>
+                  <router-link to="/login">退出登录</router-link>
+                </li>
               </ul>
             </div>
 
@@ -45,7 +47,8 @@
               <option value="2">在线提问</option>
               <option value="3">关注</option>
               <option value="4">个人中心</option>
-              <option value="5">登录/注册</option>
+              <option value="5" v-if="!islogin">登录/注册</option>
+              <option value="5" v-else>退出登录</option>
             </select>
           </nav>
           <!-- End of Main Navigation -->
@@ -55,12 +58,19 @@
 </template>
 
 <script>
+import { mapState} from "vuex";
 export default {
   name: 'mainav',
   data() {
     return {
       selected: 1,
     }
+  },
+  computed: {
+    ...mapState({
+      isclose: state => state.user.isclose,
+      islogin: state => state.user.islogin,
+    })
   },
   methods: {
      changeHref(sortnum) {

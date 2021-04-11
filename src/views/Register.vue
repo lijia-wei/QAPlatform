@@ -114,6 +114,7 @@ export default {
           }
           this.$message.success("注册成功请登录");
           // this.join();
+          this.$router.push({path:'/login'});
         })
         .catch(e => {
           this.$message.error(e);

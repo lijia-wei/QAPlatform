@@ -203,9 +203,9 @@ form.search-form input.search-term.loading {
 }
 form.search-form input.search-btn {
   background-color: #3f4b55;
-  font-size: 14px;
+  font-size: 18px;
   line-height: 19px;
-  font-weight: 600;
+  font-weight: 500;
   padding: 14px 30px 15px;
   color: #fff;
 }
@@ -345,6 +345,48 @@ a img.aligncenter {
 .bypostauthor {
   visibility: visible;
 }
+/* Post questions-------------------------------------------------------------------------------------------- */
+.post-container{
+  width: 100%;
+}
+.post-container p{
+  font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 28px;
+  padding-left: 20%;
+  margin-top: 20px;
+}
+.post-container .post {
+  margin: 1em  auto 5em auto ;
+  width: 60%;
+  position: relative;
+}
+.post-container .post input, .post textarea{
+  border:1.4px solid #888686;
+  border-radius: 0.1em;
+}
+.post-container .post textarea {
+  min-height: 50px;
+  max-height: 300px;
+}
+.post-container input.post-btn {
+  background-color: #f16d56;
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: 500;
+  padding: 10px 25px 10px;
+  color: #fff;
+  border: 0px solid #f7f6f6;
+  border-radius: 0em;
+  margin-top: 1em;
+  position: absolute;
+  right: 0;
+  bottom: -3em;
+}
+
+.post-container .post-btn:hover {
+  background-color: #e44d27;
+}
+
 
 /* Comments ----------------------------------------------------------------------------------------------------------*/
 .commentlist {
@@ -894,7 +936,7 @@ input[type=text].error,
 /* Footer ------------------------------------------------------------------------------------------------------------*/
 #footer-wrapper {
   width: 100%;
-  background: url("../images/footer-bg.png");
+  background: url("../../assets/images/footer-bg.png");
 }
 #footer-wrapper > #footer {
   padding: 20px 35px;
