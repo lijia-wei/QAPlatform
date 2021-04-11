@@ -1,5 +1,5 @@
 <template>
-  <div class="page-bar">
+  <div class="pagebar">
     <ul>
       <li v-if="cur==1"><a class="banclick">上一页</a></li>
       <li v-if="cur>1"><a @click="pageClick, cur--">上一页</a></li>
@@ -19,7 +19,7 @@ export default {
   data() {
     return {
       index: 1,  
-      all: 2,  //总页数
+      all: 100,  //总页数
       cur: 1,    //当前页数
       tolalPage: 0,  //当前条数
     }
@@ -96,22 +96,22 @@ export default {
 </script>
 
 <style>
-.page-bar {
+  .pagebar {
     margin:40px auto;
     margin-bottom: 30px;
     height: 40px;
   }
-  ul,li {
+  .pagebar ul,li {
     margin: 0px;
     padding: 0px;
   }
   li {
     list-style: none;
   }
-  .page-bar li:first-child>a {
+  .pagebar li:first-child>a {
     margin-left: 0px;
   }
-  .page-bar a {
+  .pagebar a {
     border: 1px solid #ddd;
     text-decoration: none;
     position: relative;
@@ -123,19 +123,19 @@ export default {
     cursor: pointer;
     margin-right: 20px;
   }
-  .page-bar a:hover {
+  .pagebar a:hover {
     background-color: #eee;
   }
-  .page-bar a.banclick {
+  .pagebar a.banclick {
     cursor:not-allowed;
   }
-  .page-bar .active a {
+  .pagebar .active a {
     color: #fff;
     cursor: default;
     background-color: #E96463;
     border-color: #E96463;
   }
-  .page-bar i {
+  .pagebar i {
     font-style:normal;
     color: #d44950;
     margin: 0px 4px;
