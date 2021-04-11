@@ -3,8 +3,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import index from '../views/index'
-import login from '../views/login'
-import register from '../views/register'
+import login from '../views/Login'
+import register from '../views/Register'
 // import User from '../components/User'
 // import Profile from '../components/Profile'
 

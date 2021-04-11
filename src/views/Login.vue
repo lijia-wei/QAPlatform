@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapMutations } from "vuex";
 export default {
   name: 'Login',
   data() {
@@ -24,25 +24,27 @@ export default {
 
     }
   },
-  computed: {
-    ...mapState({
-      isclose: state => state.user.isclose,
-      islogin: state => state.user.islogin,
-      // avatar: state => state.user.userinfo.avatar,
-      // nickname: state => state.user.userinfo.nickname,
-    })
-  },
+  // 辅助函数也一样，获取模块中的state值
+  // computed: {
+  //   ...mapState({
+  //     isclose: state => state.user.isclose,
+  //     islogin: state => state.user.islogin,
+  //     // avatar: state => state.user.userinfo.avatar,
+  //     // nickname: state => state.user.userinfo.nickname,
+  //   })
+  // },
 
   methods: { 
-    ...mapActions("user", [
+    ...mapMutations("user", [
       "setUserInfo",
-      "changeislog",
-      "setToken",
-      "join",
-      "close",
-      "setunread",
-      "deleteuserinfo"
+      "ISLOG",
+      "CLOSE",
+      // "join",
+      // "close",
+      // "setunread",
+      // "deleteuserinfo"
     ]),
+
     login(){
       if (this.password == "" || this.password == "") {
         this.$message.error("账号或者密码为空");
@@ -57,29 +59,28 @@ export default {
         method: "POST",
         headers: {'Content-Type': 'application/json;charset=UTF-8'},
         data: JSON.stringify(obj),
-        // withCredentials: true,
       })
        .then(res => {
-          let data = res.data.data;
-          if (res.data.state == 200) {
+          if(res.data.state == 200) {
             this.$message.success("登录成功");
-            // this.$store.user.dispatch("setUserInfo", data)
-            // this.setUserInfo(data.userinfo);
-            // let allCookies = document.cookie;
-            // console.log(allCookies);
-            // this.$store.user.dispatch("setUserInfo", data)
-            // this.setUserInfo(data.user);
-            // this.setUserInfo(data.userinfo);
-            // this.setToken(data.token);
-
-            // 获取当前登录信息
+            //获取当前登录信息
             this.$axios({
               url: "/user/getCurrentUser",
               method: "GET",
               headers: {'Content-Type': 'application/json;charset=UTF-8'},
               }).then(res => {
-                console.log(res);
+                let data = res.data.data.data;
+                if (res.data.state == 200) { 
+                  this.setUserInfo(data);
+                  this.ISLOG();
+                  this.CLOSE();
+                  console.log(data.id);
+                }
               })
+            //跳转主页
+            this.$router.replace({
+              path:'/'
+            })
           }
           if (res.data.state == 403){
             this.$message.error("该用户不存在，请前往注册");
@@ -91,7 +92,8 @@ export default {
         .catch(e => {
           this.$message(e);
         });
-    }
+    },
+
   },
   
 }

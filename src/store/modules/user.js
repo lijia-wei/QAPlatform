@@ -1,43 +1,43 @@
 const state = {
-    islog: true,
-    islogin: true,
-    isclose: false,
-    // userinfo: JSON.parse(localStorage.getItem("userinfo")) || {avatar:''},//先去localStorage中获取数据
-    // unread: 0
-
+    islogin: false,
+    isclose: true,
+    userinfo: {
+        id: "",
+        username: "",
+        password: "",
+        pet_name: "",
+        email: "",
+    }
 }
 const getters = {
-
+    //放state相关计算属性
 }
-// const mutations = {
-//     SET_USERINFO(state, userinfo) {
-//         console.log(userinfo)
-//         state.userinfo = userinfo,
-//             localStorage.setItem('userinfo', JSON.stringify(userinfo))
-//     },
-//     CHANGE_ISLOG(state) {
-//         state.islog = !state.islog
-//     },
-//     DELETE_USERINFO(state) {
-//         state.userinfo={avatar:''}
-//         window.localStorage.removeItem('userinfo')
-//         window.localStorage.removeItem('luffy_jwt_token')
+//非异步操作
+const mutations = {
+    setUserInfo(state, userinfo) {
+        state.userinfo = userinfo;
+    },
+    ISLOG(state) {
+        state.islogin = !state.islogin;
+    },
+    CLOSE(state) {
+        state.isclose = !state.isclose;
+    },
+    // DELETE_USERINFO(state) {
+    //     state.userinfo={avatar:''}
+    //     window.localStorage.removeItem('userinfo')
+    //     window.localStorage.removeItem('luffy_jwt_token')
 
-//     },
-//     SET_TOKEN(state, data) {
-//         state.token = data
-//         window.localStorage.setItem('luffy_jwt_token', state.token);
-//     },
-//     JOIN() {
-//         state.islogin = !state.islogin;
-//     },
-//     CLOSE() {
-//         state.isclose = !state.isclose;
-//     },
-//     SET_UNREAD(state, num) {
-//         state.unread = num
-//     },
-// }
+    // },
+    // SET_TOKEN(state, data) {
+    //     state.token = data
+    //     window.localStorage.setItem('luffy_jwt_token', state.token);
+    // },
+    // SET_UNREAD(state, num) {
+    //     state.unread = num
+    // },
+}
+//异步操作
 // const actions = {
 //     //这里的context是该模块中的，不再代表$store
 //     setUserInfo(context, data) {
@@ -62,10 +62,10 @@ const getters = {
 //         commit('SET_UNREAD', data)
 //     },
 // }
-// export default {
-//     namespaced: true,
-//     state,
-//     getters,
-//     mutations,
-//     actions
-// }
+export default {
+    namespaced: true,   //单独空间变量，不会与index里面的冲突
+    state,
+    getters,
+    mutations,
+    // actions
+}
