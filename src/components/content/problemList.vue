@@ -3,8 +3,8 @@
     <p><i class="fa fa-question-circle"></i>问题列表</p>
     <!-- //内容 -->
     <el-collapse v-model="activeNames" @change="handleChange">
-      <el-collapse-item :title="titlename" :name="1">
-        <div>{{contents}}</div>
+      <el-collapse-item v-for="(item,index) in dataList" :key="index" :title="item.title " :name="index">
+        <div>{{item.content}}</div>
       </el-collapse-item>
     </el-collapse>
     <!-- 分页栏 -->
@@ -36,7 +36,7 @@
         activeNames: ['1'],
         //分页栏
         index: 1,  //用于循环每页的下标
-        all: 10,   //总页数
+        all: 1,   //总页数
         cur: 1,    //当前选中的页数
         tolalPage: 0,  //当前条数
       }
@@ -52,9 +52,9 @@
       // 向后台发送搜索信息数据
       dataListFn(index) {
         let params = {
-          current: index,    //第几页
+          current: index,       //第几页
           limit: 10,            //每页几条
-          qName: "",        //帖子/问题名字
+          qName: "",            //帖子/问题名字
           sortType: 1,          //排序类型
           type: 1               //查询类型
         }
@@ -64,15 +64,9 @@
           headers: {'Content-Type': 'application/json;charset=UTF-8'},
           data: JSON.stringify(params),
         }).then((res) => {
-          console.log(res); 
           let data = res.data.data.data;  //请求到的问题数组
           if(res.data.state == 200){
-            this.dataList = [];
-            // for(let i=0; i<data.length; i++){
-            //   this.dataList.push(data[i]);
-            // }
-            console.log(data.length); 
-            // this.cur = res.data.
+            this.dataList = data;
           }
         });
       },
@@ -90,10 +84,11 @@
       },
 
     },
-    
+  
     computed: {
       //计算分页栏的点击选页
       indexs() {
+        this.dataListFn(this.cur);
         var left = 1;
         var right = this.all;
         var ar = [];
