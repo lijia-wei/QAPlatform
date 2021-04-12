@@ -74,9 +74,10 @@ export default {
                   this.setUserInfo(data);
                   this.ISLOG();
                   this.CLOSE();
-                  console.log(this.islogin);
                 }
-              })
+              }).catch(e => {
+                this.$message(e);
+              });
             //跳转主页
             this.$router.replace({
               path:'/'
