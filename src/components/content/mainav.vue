@@ -32,7 +32,7 @@
                   <router-link to="/login">登录/注册</router-link>
                 </li>
                 <li v-else>
-                  <router-link to="/login">退出登录</router-link>
+                  <a @click="logout">退出登录</a>
                 </li>
               </ul>
             </div>
@@ -48,7 +48,7 @@
               <option value="3">关注</option>
               <option value="4">个人中心</option>
               <option value="5" v-if="!islogin">登录/注册</option>
-              <option value="5" v-else>退出登录</option>
+              <option value="5" v-else @click="logout">退出登录</option>
             </select>
           </nav>
           <!-- End of Main Navigation -->
@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import { mapState} from "vuex";
+import { mapState, mapMutations } from "vuex";
 export default {
   name: 'mainav',
   data() {
@@ -66,13 +66,29 @@ export default {
       selected: 1,
     }
   },
+
+  // 辅助函数也一样，获取模块中的state值
   computed: {
     ...mapState({
       isclose: state => state.user.isclose,
       islogin: state => state.user.islogin,
+      userinfo: state => state.user.userinfo,
     })
   },
+
   methods: {
+    ...mapMutations("user", [
+      "setUserInfo",
+      "ISLOG",
+      "CLOSE",
+      "DELETE_USERINFO",
+    ]),
+
+    //退出登录
+    logout() {
+      this.DELETE_USERINFO();
+      this.$message.success("退出成功");
+    },
      changeHref(sortnum) {
       switch (sortnum) {
         case 1:

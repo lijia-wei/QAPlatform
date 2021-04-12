@@ -7,7 +7,7 @@
     <div class="search-area-wrapper">
       <div class="search-area container">
         <h3 class="search-header">Questions & Answers</h3>
-         <router-link to="/index"><a class="logo-img"></a></router-link>
+         <router-link to="/"><a class="logo-img"></a></router-link>
         <p class="search-tag-line" style="margin-top:50px">
           信息共享与交流平台，你问我答，让信息传递更简单！
         </p>
@@ -26,11 +26,13 @@
     </div>
 
     <!-- Main Content -->
-    <problemList/>  
+    <problem-list/>  
 
     <!-- Post questions -->
+    
     <div class="post-container">
-      <p>在线提问</p>
+      <hr/>
+      <p><i class="fa fa-pencil-square"></i>在线提问</p>
       <div class="post">
         <el-input
           type="text"
@@ -62,7 +64,6 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
 import foot from "@/components/content/foot";
 import mainav from "@/components/content/mainav";
 import problemList from "@/components/content/problemList"
@@ -80,26 +81,16 @@ export default {
       what: "hhhh"
     }
   },
-  // 辅助函数也一样，获取模块中的state值
-  computed: {
-    ...mapState({
-      isclose: state => state.user.isclose,
-      islogin: state => state.user.islogin,
-      userinfo: state => state.user.userinfo,
-    })
-  },
   components: {
     foot,
     mainav,
     problemList,
   },
+  mounted(){
+    console.log(this.islogin);
+  },
   // 辅助函数也一样，获取user模块中的mutations方法
   methods: {
-    ...mapMutations("user", [
-      "setUserInfo",
-      "ISLOG",
-      "CLOSE",
-    ]),
     //发表帖子/提问
     postQuestions() {
       let obj = {
@@ -115,20 +106,15 @@ export default {
           console.log(res);
         })
     },
-    //退出登录
-  //   logout() {
-  //     this.deleteuserinfo();
-  //     this.$message.success("退出成功");
-  //   },
-  //   joinin() {
-  //     this.join();
-  //   },
-  //   closein() {
-  //     this.close();
-  //   },
-  //   onSubmit() {
-  //     return false;
-  //   },
+    // joinin() {
+    //   this.join();
+    // },
+    // closein() {
+    //   this.close();
+    // },
+    // onSubmit() {
+    //   return false;
+    // },
     searchbtn() {
   //     if (this.search == "") {
   //       this.$message.error("关键字不能为空");

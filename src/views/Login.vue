@@ -25,14 +25,14 @@ export default {
     }
   },
   // 辅助函数也一样，获取模块中的state值
-  // computed: {
-  //   ...mapState({
-  //     isclose: state => state.user.isclose,
-  //     islogin: state => state.user.islogin,
-  //     // avatar: state => state.user.userinfo.avatar,
-  //     // nickname: state => state.user.userinfo.nickname,
-  //   })
-  // },
+  computed: {
+    ...mapState({
+      isclose: state => state.user.isclose,
+      islogin: state => state.user.islogin,
+      // avatar: state => state.user.userinfo.avatar,
+      // nickname: state => state.user.userinfo.nickname,
+    })
+  },
 
   methods: { 
     ...mapMutations("user", [
@@ -74,9 +74,10 @@ export default {
                   this.setUserInfo(data);
                   this.ISLOG();
                   this.CLOSE();
-                  console.log(data.id);
                 }
-              })
+              }).catch(e => {
+                this.$message(e);
+              });
             //跳转主页
             this.$router.replace({
               path:'/'

@@ -32,7 +32,7 @@
                     href="http://www.guoang.xyz/"
                     target="“_blank”"
                     title="Lorem ipsum dolor sit amet,"
-                  >郭昂个人博客</a>
+                  >个人博客</a>
                 </li>
              
               </ul>
@@ -86,7 +86,7 @@
                 -
                 <a
                   style="color: #858585;"
-                  href="http://www.guoang.xyz/"
+                  href="http://www..xyz/"
                   target="“_blank”"
                 >www.guoang.xyz</a>
               </p>
