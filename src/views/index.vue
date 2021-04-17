@@ -100,7 +100,6 @@ export default {
       this.$axios({
         url: "/question/submit",
         method: "POST",
-        headers: {'Content-Type': 'application/json;charset=UTF-8'},
         data: JSON.stringify(obj),
       }).then(res => {
           console.log(res);

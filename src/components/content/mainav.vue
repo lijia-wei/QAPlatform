@@ -86,8 +86,19 @@ export default {
 
     //退出登录
     logout() {
-      this.DELETE_USERINFO();
-      this.$message.success("退出成功");
+      //注销
+      this.$axios({
+        url: "/user/cancel",
+        method: "POST",
+        headers: {'Content-Type': 'application/json;charset=UTF-8'},
+      }).then(res => {
+        if (res.data.state == 200) { 
+        this.DELETE_USERINFO();
+      }
+      }).catch(e => {
+        this.$message(e);
+      });
+      this.$message.success("退出成功");  
     },
      changeHref(sortnum) {
       switch (sortnum) {

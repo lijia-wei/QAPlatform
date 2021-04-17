@@ -57,7 +57,6 @@ export default {
       this.$axios({
         url: "/user/login",
         method: "POST",
-        headers: {'Content-Type': 'application/json;charset=UTF-8'},
         data: JSON.stringify(obj),
       })
        .then(res => {
@@ -67,7 +66,6 @@ export default {
             this.$axios({
               url: "/user/getCurrentUser",
               method: "GET",
-              headers: {'Content-Type': 'application/json;charset=UTF-8'},
               }).then(res => {
                 let data = res.data.data.data;
                 if (res.data.state == 200) { 

@@ -62,7 +62,6 @@ export default {
       this.$axios({
         url: "/email/sendEmail/registerCode",
         method: "POST",
-        headers: {'Content-Type': 'application/json;charset=UTF-8'},
         data: this.e_mail,
       })
       .then(res => {
@@ -98,7 +97,6 @@ export default {
       this.$axios({
         url: "/user/register/"+this.verification,
         method: "POST",
-        headers: {'Content-Type': 'application/json;charset=UTF-8'},
         data: JSON.stringify(obj)
       })
         .then(res => {
