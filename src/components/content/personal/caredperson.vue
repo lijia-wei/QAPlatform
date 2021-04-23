@@ -1,16 +1,19 @@
 <template>
-  <div id="comment">
+  <div class="caredperson">
     
   </div>
 </template>
 
 <script>
 export default {
-  name: "comment",
-  data(){
+  name: "caredperson",
+  data() {
     return {
 
     }
+  },
+  methods: {
+
   }
 }
 </script>

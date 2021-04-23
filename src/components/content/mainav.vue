@@ -15,16 +15,16 @@
                 <router-link to="/" tag="li" exact-active-class="current-menu-item">
                   <a>首页</a>
                 </router-link>
-                <router-link to="/help" tag="li" exact-active-class="current-menu-item">
+                <router-link to="/myquestions" tag="li" exact-active-class="current-menu-item">
                   <a>我的提问</a>
                 </router-link>
-                <router-link to="/activity" tag="li" exact-active-class="current-menu-item">
-                  <a>关注</a>
+                <router-link to="/mycare" tag="li" exact-active-class="current-menu-item">
+                  <a>我的关注</a>
                 </router-link>
-                <router-link to="/job" tag="li" exact-active-class="current-menu-item">
-                  <a>个人中心</a>
+                <router-link to="/personalset" tag="li" exact-active-class="current-menu-item">
+                  <a>设置</a>
                 </router-link>
-                <router-link to="/oldstuff" tag="li" exact-active-class="current-menu-item">
+                <router-link to="/about" tag="li" exact-active-class="current-menu-item">
                   <a>关于我们</a>
                 </router-link>
 
@@ -44,9 +44,9 @@
               class="responsive-nav"
             >
               <option value="1">首页</option>
-              <option value="2">在线提问</option>
-              <option value="3">关注</option>
-              <option value="4">个人中心</option>
+              <option value="2">我的提问</option>
+              <option value="3">我的关注</option>
+              <option value="4">设置</option>
               <option value="5" v-if="!islogin">登录/注册</option>
               <option value="5" v-else @click="logout">退出登录</option>
             </select>

@@ -17,7 +17,7 @@
             class="search-term required"
             type="text"
             v-model="search"
-            placeholder="Type your search terms here"
+            placeholder="输入问题名称"
           />
           <input class="search-btn" type="submit" @click="searchbtn" value="搜索" />
           <div id="search-error-container"></div>
@@ -26,7 +26,7 @@
     </div>
 
     <!-- Main Content -->
-    <problem-list/>  
+    <problem-list :qName="qName"/>  
 
     <!-- Post questions -->
     
@@ -78,7 +78,8 @@ export default {
       search: "",
       text: '',
       textarea: '',
-      what: "hhhh"
+      what: "hhhh",
+      qName: "",
     }
   },
   components: {
@@ -105,6 +106,15 @@ export default {
           console.log(res);
         })
     },
+    searchbtn() {
+      if (this.search == "") {
+        this.$message.error("关键字不能为空");
+        return;
+      }
+      else{
+        this.qName = this.search;
+      }
+    },
     // joinin() {
     //   this.join();
     // },
@@ -114,13 +124,6 @@ export default {
     // onSubmit() {
     //   return false;
     // },
-    searchbtn() {
-  //     if (this.search == "") {
-  //       this.$message.error("关键字不能为空");
-  //       return;
-  //     }
-  //     this.$router.push({ path: "/search", query: { search: this.search } });
-    },
   //   async getnocitenmu() {     
   //         const res = await this.$axios.post(
   //           "/web/getnotice",

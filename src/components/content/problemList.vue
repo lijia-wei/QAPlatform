@@ -1,5 +1,6 @@
 <template>
   <div class="pro-list">
+    
     <p><i class="fa fa-question-circle"></i>问题列表</p>
     <!-- //内容 -->
     <el-collapse v-model="activeNames" v-loading="loading"
@@ -14,14 +15,16 @@
           <br>
           <span class="updatetime">更新时间：{{moment(item.updateTime).format('YYYY-MM-DD HH:mm:ss')}}</span>
         </span>
-       
+        <care :uId="item.uId" v-if="item.uId != userinfo.id"/>
         <div class="content">{{item.content}}</div>
-        <!-- <div>{{item.likeNum}}</div> -->
-        <!-- <div>{{item.uId}}</div> -->
+
+        <tagslike1 :qId="item.id"/>  
+        <div class="postcomment">
+          <el-input v-model="input" placeholder="在线评论"></el-input>
+          <input class="post-btn" type="button" @click="postComment(item.id)" value="评论" />
+        </div>
         
-        <!-- <img src="4768a6bd-78ba-422a-919c-67d218c07e7a.png" alt=""> -->
-        <div>此处是评论操作</div>
-        <tagslike/>  
+        <commentv1 :qId="item.id"></commentv1> 
       </el-collapse-item>
     </el-collapse>
     <!-- 分页栏 -->
@@ -42,11 +45,15 @@
 
 <script>
   import moment from 'moment'//导入文件
-  import tagslike from '@/components/content/tagsLike'
+  import { mapState, mapMutations } from "vuex";
+  import tagslike1 from '@/components/content/tagsLike1'
+  import commentv1 from '@/components/content/commentv1'
+  import care from '@/components/content/care'
   export default {
     name: "problemList",
     data() {
       return {
+        input: '',   //评论
         imgSrc: [],  //头像
         petName: [],  //用户名
         //问题内容
@@ -65,19 +72,40 @@
         moment,    //Json时间转换对象
       }
     },
+    props: {
+      qName: {
+        type: String,
+        default: '',
+      }
+    },
     components: {
-      tagslike,
+      tagslike1,
+      commentv1,
+      care
     },
     methods: {
-      handleChange(val) {
-        console.log(val);
+      //提交一级评论
+      postComment(qId) {
+        let obj = {
+          comment: this.input,
+          qId: qId,
+        }
+        this.$axios({
+          url: "/commentLv1/postCommentLv1",
+          method: "POST",
+          data: JSON.stringify(obj),
+        }).then(res => {
+            if(res.data.state == 200){
+              this.$message.error("评论成功！");
+            }
+          })
       },
+      //获取问题列表
       dataListFn(index) {
-        
         let params = {
           current: index,       //第几页
           limit: 10,            //每页几条
-          qName: "",            //帖子/问题名字
+          qName: this.qName,    //问题标题名字
           sortType: 1,          //排序类型
           type: 1               //查询类型
         }
@@ -90,6 +118,7 @@
           let data = res.data.data.data;  //请求到的问题数组
           if(res.data.state == 200){
             this.testList = data;
+
             //请求问题列表中的每个用户的头像
             for(let i=0; i<this.testList.length; i++){
               this.$axios.all([this.$axios({
@@ -112,7 +141,7 @@
             }
             //防止异步操作先后导致起初图片无法显示
             setInterval(()=>{
-              this.dataList = this.testList;   //dataList相当于指针，是指向testList
+              this.dataList = this.testList;   //dataList相当于指针，是指向testList!!!
               this.loading = false;
               clearInterval(this.timer);
             },800);
@@ -142,6 +171,11 @@
       },
     },
     computed: {
+      ...mapState({
+        isclose: state => state.user.isclose,
+        islogin: state => state.user.islogin,
+        userinfo: state => state.user.userInfo,
+      }),
       //计算分页栏的点击选页
       indexs() {
         this.clearArray();
@@ -175,94 +209,6 @@
   }
 </script>
 
-
-
 <style>
-  .pro-list {
-    width: 70%;
-    margin: 0 auto;
-    position: relative;
-    margin-top: 3em;
-  }
-  .pro-list p {
-    font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 28px;
-    margin: 2em 0 1em;
-  }
-  .pro-list .el-collapse-item__header{
-    font-size: 19px;
-    color: rgb(18, 18, 19);
-    font-weight: 800px;
-  }
-  .pro-list .el-collapse-item__content .content{
-    margin-top: 1em;
-    font-size: 16px;
-    color: rgb(81, 81, 83);
-    font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  }
-  .pro-list .el-collapse-item__content .petName{
-    font-size: 17px;
-    color: rgb(47, 44, 51);
-    margin-left: 1em;
-    font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  }
-  .pro-list .el-collapse-item__content .updatetime{
-    font-size: 14px;
-    color: rgb(79, 79, 80);
-  }
-  .pro-list .pagebar {
-    float: right;
-  }
-  .pro-list .headpic {
-    height: 60px;
-    width: 60px;
-    display: inline-block;
-    background-size: cover;
-    border-radius: 50%;
-  }
-  .pagebar {
-    margin:35px auto;
-    margin-bottom: 30px;
-    height: 40px;
-  }
-  .pagebar ul,li {
-    margin: 0px;
-    padding: 0px;
-    height: 38px;
-    display: inline;
-  }
-  li {
-    list-style: none;
-  }
-  .pagebar li:first-child>a {
-    margin-left: 0px;
-  }
-  .pagebar a {
-    border: 1px solid #ddd;
-    text-decoration: none;
-    position: relative;
-    padding: 7px 12px;
-    line-height: 1.42857143;
-    color: #5D6062;
-    cursor: pointer;
-    margin-right: 15px;
-  }
-  .pagebar a:hover {
-    background-color: #eee;
-  }
-  .pagebar a.banclick {
-    cursor:not-allowed;
-  }
-  .pagebar .active a {
-    color: #fff;
-    cursor: default;
-    background-color: #E96463;
-    border-color: #E96463;
-  }
-  .pagebar i {
-    font-style:normal;
-    color: #d44950;
-    margin: 0px 4px;
-    font-size: 12px;
-  }
+
 </style>
