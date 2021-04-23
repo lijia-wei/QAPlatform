@@ -11,6 +11,15 @@
   border-radius: 8%;
   box-shadow: 0 5px 7px 0 rgba(104, 101, 101, 0.5);
 }
+.findpass {
+  position: relative;
+  margin: -35em 55%;
+  background-color: #ffffff80;
+  height: 300px;
+  width: 400px;
+  border-radius: 0;
+  box-shadow: 0 5px 7px 0 rgba(104, 101, 101, 0.5);
+}
 .sign-in-box span{   
     text-align: center;
     top: 15%;
@@ -20,6 +29,9 @@
     color: rgb(26, 22, 80); 
     font-size: 30px;
     margin-bottom: 5%;
+}
+.findpass span {
+  font-size: 25px;
 }
 .sign-in-box .regi, .sign-in-box .login{
   text-align: center;
@@ -34,6 +46,14 @@
   height: 40%;
   width: 100%;
   position: relative;
+}
+.findpass .in {
+  height: 45%;
+  top: 13%;
+}
+.findpass .get{
+  height: 20%;
+  
 }
 .in input{
   width: 70%;
@@ -51,6 +71,12 @@
 .in input:nth-child(2){
   top: 40%;
 }
+.in input:nth-child(3){
+  top: 60%;
+}
+.in input:nth-child(4){
+  top: 100%;
+}
 
 button{
   display: block;
@@ -63,6 +89,9 @@ button{
   bottom: 18%;
   left: 38%;
   position: absolute;
+}
+.findpass button {
+  bottom: 6%;
 }
 .sign-in-box .findpass,.sign-in-box .login{
   left: 22%;
@@ -132,6 +161,9 @@ span.regiline{
   left: 68%;
   padding: 0;
   top: -8%;
+}
+.findpass .sendver {
+  top: 5%;
 }
 .sign-in-box .agree{
   bottom: 15%;
