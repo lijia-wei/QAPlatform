@@ -15,14 +15,17 @@
                 <router-link to="/" tag="li" exact-active-class="current-menu-item">
                   <a>首页</a>
                 </router-link>
-                <router-link to="/myquestions" tag="li" exact-active-class="current-menu-item">
+                <router-link to="/myquestions" v-if="islogin" tag="li" exact-active-class="current-menu-item">
                   <a>我的提问</a>
                 </router-link>
-                <router-link to="/mycare" tag="li" exact-active-class="current-menu-item">
-                  <a>我的关注</a>
+                <router-link to="/login" v-else tag="li" exact-active-class="current-menu-item">
+                  <a>我的提问</a>
                 </router-link>
-                <router-link to="/personalset" tag="li" exact-active-class="current-menu-item">
-                  <a>设置</a>
+                <router-link to="/setting" v-if="islogin" tag="li" exact-active-class="current-menu-item">
+                  <a>个人中心</a>
+                </router-link>
+                <router-link to="/login" v-else tag="li" exact-active-class="current-menu-item">
+                  <a>个人中心</a>
                 </router-link>
                 <router-link to="/about" tag="li" exact-active-class="current-menu-item">
                   <a>关于我们</a>
@@ -45,10 +48,10 @@
             >
               <option value="1">首页</option>
               <option value="2">我的提问</option>
-              <option value="3">我的关注</option>
-              <option value="4">设置</option>
+              <option value="3">个人中心</option>
+              <option value="4">关于我们</option>
               <option value="5" v-if="!islogin">登录/注册</option>
-              <option value="5" v-else @click="logout">退出登录</option>
+              <option value="6" v-else @click="logout">退出登录</option>
             </select>
           </nav>
           <!-- End of Main Navigation -->
@@ -61,6 +64,7 @@
 import { mapState, mapMutations } from "vuex";
 export default {
   name: 'mainav',
+  inject: ["reload"],
   data() {
     return {
       selected: 1,
@@ -94,32 +98,32 @@ export default {
       }).then(res => {
         if (res.data.state == 200) { 
         this.DELETE_USERINFO();
+        this.$message.success("退出成功!"); 
       }
       }).catch(e => {
         this.$message(e);
       });
-      this.$message.success("退出成功");  
+       
     },
      changeHref(sortnum) {
       switch (sortnum) {
         case 1:
           this.$router.push({ path: "/" });
           break;
-        // case 2:
-        //   this.$router.push({ path: "/help" });
-        //   break;
-        // case 3:
-        //   this.$router.push({ path: "/activity" });
-        //   break;
-        // case 4:
-        //   this.$router.push({ path: "/job" });
-        //   break;
-        case 6:
+        case 2:
+          this.$router.push({ path: "/myquestions" });
+          break;
+        case 3:
+          this.$router.push({ path: "/setting" });
+          break;
+        case 4:
+          this.$router.push({ path: "/about" });
+          break;
+        case 5:
           this.$router.push({ path: "/login" });
           break;
-        // case 6:
-          // this.close();
-          // break;
+        case 6:
+          break;
       }
     },
   }

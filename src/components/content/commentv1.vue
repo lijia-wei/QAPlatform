@@ -38,9 +38,7 @@ import tagslike2 from '@/components/content/tagsLike2'
         //问题内容
         dataList: [],  //dataList相当于指针，是指向testList
         testList: [],  
-        name: 0,
         contents: "我是内容",
-        activeNames: [0,1,2],
         loading: true,
         moment
       }

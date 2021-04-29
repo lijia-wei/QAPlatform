@@ -40,6 +40,7 @@
         <li><a>共<i>{{ all }}</i>页</a></li>
       </ul>
     </div>
+    <div style="clear: both;"></div>  <!--清除浮动-->
   </div>
 </template>
 
@@ -66,7 +67,7 @@
         loading: true,
         //分页栏
         index: 1,  //用于循环每页的下标
-        all: 10,   //总页数
+        all: 5,   //总页数
         cur: 1,    //当前选中的页数
         tolalPage: 0,  //当前条数
         moment,    //Json时间转换对象
@@ -76,6 +77,14 @@
       qName: {
         type: String,
         default: '',
+      },
+      url: {
+        type: String,
+        default: "/question/query",
+      },
+      which: {
+        type: Number,
+        default: 0,
       }
     },
     components: {
@@ -102,18 +111,25 @@
       },
       //获取问题列表
       dataListFn(index) {
-        let params = {
+        let params = [{
           current: index,       //第几页
           limit: 10,            //每页几条
           qName: this.qName,    //问题标题名字
           sortType: 1,          //排序类型
           type: 1               //查询类型
-        }
+        },
+        {
+          current: index,
+          limit: 10,
+          type: 1,
+          uId: this.userinfo.id,
+        }];
+        console.log(this.url);
         //请求问题列表
         this.$axios({
-          url: "/question/query",
+          url: this.url,
           method: "POST",
-          data: JSON.stringify(params),
+          data: JSON.stringify(params[this.which]),
         }).then((res) => {
           let data = res.data.data.data;  //请求到的问题数组
           if(res.data.state == 200){
@@ -124,11 +140,9 @@
               this.$axios.all([this.$axios({
                 url: "/headPicture/getHeadPicture/"+ this.testList[i].uId,
                 method: "POST",
-                data: JSON.stringify(params),
               }), this.$axios({
                 url: "/user/getPetNameByUId/"+ this.testList[i].uId,
                 method: "GET",
-                data: JSON.stringify(params),
               })])
               .then((res) => {
                 if(res[0].data.state == 200){
@@ -146,6 +160,9 @@
               clearInterval(this.timer);
             },800);
 
+          }
+          else if(res.data.state == 403){
+            this.loading = false;
           }
         });
 

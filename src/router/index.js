@@ -7,7 +7,7 @@ import login from '../views/Login'
 import register from '../views/Register'
 import about from '../views/Aboutus'
 import myquestions from '../views/personalCenter/Personalquestions'
-
+import setting from '../views/personalCenter/Personalset'
 //2.通过Vue.use()安装插件
 Vue.use(VueRouter)
 
@@ -17,6 +17,7 @@ const routes = [
   { path: '/register', component: register, meta:{title: '注册'} },
   { path: '/login', component: login, meta:{title: '登录'} },
   { path: '/myquestions', component: myquestions, meta:{title: '我的提问'} },
+  { path: '/setting', component: setting, meta:{title: '个人中心'} },
   { path: '/about', component: about, meta:{title: '关于我们'} },
 ]
 
@@ -27,7 +28,7 @@ const router = new VueRouter({
 
 })
 
-//全局导航守卫,前置首位(guard)
+// 全局导航守卫,前置首位(guard)
 // router.beforeEach((to, from, next) => {
 //   //从from对象跳转到to对象
 //   document.title = to.matched[0].meta.title;

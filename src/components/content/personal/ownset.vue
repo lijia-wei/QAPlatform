@@ -1,23 +1,29 @@
 <template>
-  <el-container>
-    <el-header>Header</el-header>
-    <el-container>
-      <el-aside width="200px">Aside</el-aside>
-      <el-container>
-        <el-main>Main</el-main>
-        <el-footer>Footer</el-footer>
-      </el-container>
-    </el-container>
-  </el-container>
+  <div class="ownset">
+    
+  </div>
 </template>
 
 <script>
 export default {
-  name: ownset,
-  
+  name: "ownset",
+  data() {
+    return {
+    
+    }
+  },
+  methods: {
+
+  }
 }
 </script>
 
 <style>
-
+  .el-tag {
+    height: 105px;
+    margin: 1em;
+    border-color: #cae3fc;
+    border-width: 1px;
+    font-size:14px;
+  }
 </style>

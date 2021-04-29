@@ -1,14 +1,14 @@
 <template>
   <div class="index">
     <!-- Start of Header -->
-    <mainav/>
+    <mainav />
 
     <!-- Start of Search Wrapper -->
     <div class="search-area-wrapper">
       <div class="search-area container">
         <h3 class="search-header">Questions & Answers</h3>
-         <router-link to="/"><a class="logo-img"></a></router-link>
-        <p class="search-tag-line" style="margin-top:50px">
+        <router-link to="/"><a class="logo-img"></a></router-link>
+        <p class="search-tag-line" style="margin-top: 50px">
           信息共享与交流平台，你问我答，让信息传递更简单！
         </p>
 
@@ -19,19 +19,24 @@
             v-model="search"
             placeholder="输入问题名称"
           />
-          <input class="search-btn" type="submit" @click="searchbtn" value="搜索" />
+          <input
+            class="search-btn"
+            type="submit"
+            @click="searchbtn"
+            value="搜索"
+          />
           <div id="search-error-container"></div>
         </form>
       </div>
     </div>
 
     <!-- Main Content -->
-    <problem-list :qName="qName"/>  
+    <problem-list :qName="qName" />
 
     <!-- Post questions -->
-    
+
     <div class="post-container">
-      <hr/>
+      <hr />
       <p><i class="fa fa-pencil-square"></i>在线提问</p>
       <div class="post">
         <el-input
@@ -43,30 +48,35 @@
           required
         >
         </el-input>
-        <div style="margin: 20px 0;"></div>
+        <div style="margin: 20px 0"></div>
         <el-input
           type="textarea"
           placeholder="请输入内容"
           v-model="textarea"
           maxlength="2000"
           show-word-limit
-          rows="6" 
+          rows="6"
           required
         >
         </el-input>
-        <input class="post-btn" type="submit" @click="postQuestions" value="发布" />
+        <input
+          class="post-btn"
+          type="submit"
+          @click="postQuestions"
+          value="发布"
+        />
       </div>
     </div>
-    
+
     <!-- start of foot -->
-    <foot/>
+    <foot />
   </div>
 </template>
 
 <script>
 import foot from "@/components/content/foot";
 import mainav from "@/components/content/mainav";
-import problemList from "@/components/content/problemList"
+import problemList from "@/components/content/problemList";
 
 export default {
   name: "index",
@@ -76,18 +86,18 @@ export default {
       username: "",
       hover: false,
       search: "",
-      text: '',
-      textarea: '',
+      text: "",
+      textarea: "",
       what: "hhhh",
       qName: "",
-    }
+    };
   },
   components: {
     foot,
     mainav,
     problemList,
   },
-  mounted(){
+  mounted() {
     console.log(this.islogin);
   },
   // 辅助函数也一样，获取user模块中的mutations方法
@@ -97,21 +107,20 @@ export default {
       let obj = {
         title: this.text,
         content: this.textarea,
-      }
+      };
       this.$axios({
         url: "/question/submit",
         method: "POST",
         data: JSON.stringify(obj),
-      }).then(res => {
-          console.log(res);
-        })
+      }).then((res) => {
+        console.log(res);
+      });
     },
     searchbtn() {
       if (this.search == "") {
         this.$message.error("关键字不能为空");
         return;
-      }
-      else{
+      } else {
         this.qName = this.search;
       }
     },
@@ -124,18 +133,18 @@ export default {
     // onSubmit() {
     //   return false;
     // },
-  //   async getnocitenmu() {     
-  //         const res = await this.$axios.post(
-  //           "/web/getnotice",
-  //           this.qs.stringify({ num: 1 })
-  //         );
-  //         console.log(res.data);
-  //         this.setunread(res.data.data.count);
-  //   }
-  // },
-  // created() {
-  //    localStorage.luffy_jwt_token&&this.getnocitenmu();
-  }
+    //   async getnocitenmu() {
+    //         const res = await this.$axios.post(
+    //           "/web/getnotice",
+    //           this.qs.stringify({ num: 1 })
+    //         );
+    //         console.log(res.data);
+    //         this.setunread(res.data.data.count);
+    //   }
+    // },
+    // created() {
+    //    localStorage.luffy_jwt_token&&this.getnocitenmu();
+  },
 };
 </script>
 
@@ -155,7 +164,7 @@ export default {
 #mask {
   position: fixed;
   z-index: 999;
-  top: 0; 
+  top: 0;
   left: 0;
   width: 100%;
   height: 100%;

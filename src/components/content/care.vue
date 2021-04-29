@@ -38,16 +38,26 @@ export default {
     },
     //点击关注或取消关注
     iscare() {    
-      //请求问题列表
-      this.$axios({
-        url: "/care/careUser/"+this.uId,
-        method: "POST",
-        data: JSON.stringify(!this.care),
-      }).then((res) => {
-          if(res.data.state == 200){
-            this.care = !this.care;
-          }
-        })
+      if(this.$store.state.user.islogin) {
+        //请求问题列表
+        this.$axios({
+          url: "/care/careUser/"+this.uId,
+          method: "POST",
+          data: JSON.stringify(!this.care),
+        }).then((res) => {
+            if(res.data.state == 200){
+              this.care = !this.care;
+              if(this.care){
+                this.$message.success("关注成功！");
+              }else{
+                this.$message.success("取消关注！");
+              }
+            }
+          })
+      }
+      else {
+        this.$message.error("请先登录！");
+      }
     },
     overin() {
       this.isactive = !this.isactive;
