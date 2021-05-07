@@ -95,19 +95,21 @@
     methods: {
       //提交一级评论
       postComment(qId) {
-        let obj = {
-          comment: this.input,
-          qId: qId,
+        if(this.$store.state.user.islogin) {
+          let obj = {
+            comment: this.input,
+            qId: qId,
+          }
+          this.$axios({
+            url: "/commentLv1/postCommentLv1",
+            method: "POST",
+            data: JSON.stringify(obj),
+          }).then(res => {
+              if(res.data.state == 200){
+                this.$message.error("评论成功！");
+              }
+            })
         }
-        this.$axios({
-          url: "/commentLv1/postCommentLv1",
-          method: "POST",
-          data: JSON.stringify(obj),
-        }).then(res => {
-            if(res.data.state == 200){
-              this.$message.error("评论成功！");
-            }
-          })
       },
       //获取问题列表
       dataListFn(index) {

@@ -49,22 +49,6 @@ import moment from 'moment'//导入文件
     components: {
     },
     methods: {
-      //提交二级级评论
-      postComment(qId) {
-        let obj = {
-          comment: this.input,
-          qId: qId,
-        }
-        this.$axios({
-          url: "/commentLv2/postCommentLv2",
-          method: "POST",
-          data: JSON.stringify(obj),
-        }).then(res => {
-            if(res.data.state == 200){
-              this.$message.error("评论成功！");
-            }
-          })
-      },
       //获取二级评论列表
       dataListFn(index) {
         let params = {

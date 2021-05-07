@@ -14,7 +14,7 @@
       <el-divider></el-divider>
     </div>
     <!-- 显示更多 -->
-    <el-dropdown @command="handleCommand">
+    <el-dropdown @command="handleCommand" v-if="this.dataList.length==10">
       <span class="el-dropdown-link">
         显示更多<i class="el-icon-arrow-down el-icon--right"></i>
       </span>
@@ -56,19 +56,21 @@ import tagslike2 from '@/components/content/tagsLike2'
     methods: {
       //提交二级级评论
       postComment(qId) {
-        let obj = {
-          comment: this.input,
-          qId: qId,
+        if(this.$store.state.user.islogin) {
+          let obj = {
+            comment: this.input,
+            qId: qId,
+          }
+          this.$axios({
+            url: "/commentLv2/postCommentLv2",
+            method: "POST",
+            data: JSON.stringify(obj),
+          }).then(res => {
+              if(res.data.state == 200){
+                this.$message.error("评论成功！");
+              }
+            })
         }
-        this.$axios({
-          url: "/commentLv2/postCommentLv2",
-          method: "POST",
-          data: JSON.stringify(obj),
-        }).then(res => {
-            if(res.data.state == 200){
-              this.$message.error("评论成功！");
-            }
-          })
       },
       //获取一级评论列表
       dataListFn(index) {

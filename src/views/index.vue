@@ -104,17 +104,19 @@ export default {
   methods: {
     //发表帖子/提问
     postQuestions() {
-      let obj = {
-        title: this.text,
-        content: this.textarea,
-      };
-      this.$axios({
-        url: "/question/submit",
-        method: "POST",
-        data: JSON.stringify(obj),
-      }).then((res) => {
-        console.log(res);
-      });
+      if(this.$store.state.user.islogin){
+        let obj = {
+          title: this.text,
+          content: this.textarea,
+        };
+        this.$axios({
+          url: "/question/submit",
+          method: "POST",
+          data: JSON.stringify(obj),
+        }).then((res) => {
+          console.log(res);
+        });
+      }
     },
     searchbtn() {
       if (this.search == "") {
@@ -124,26 +126,6 @@ export default {
         this.qName = this.search;
       }
     },
-    // joinin() {
-    //   this.join();
-    // },
-    // closein() {
-    //   this.close();
-    // },
-    // onSubmit() {
-    //   return false;
-    // },
-    //   async getnocitenmu() {
-    //         const res = await this.$axios.post(
-    //           "/web/getnotice",
-    //           this.qs.stringify({ num: 1 })
-    //         );
-    //         console.log(res.data);
-    //         this.setunread(res.data.data.count);
-    //   }
-    // },
-    // created() {
-    //    localStorage.luffy_jwt_token&&this.getnocitenmu();
   },
 };
 </script>
