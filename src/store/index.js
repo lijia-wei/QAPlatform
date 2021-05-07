@@ -1,9 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import user from './modules/user'
-import {
-  SET_CONTENTID
-} from './mutations-types'
 Vue.use(Vuex)
 
 // const state = {
@@ -59,9 +56,9 @@ export default new Vuex.Store({
   // actions,
   // mutations,
   // getters,
-  // modules: {
-  //   user
-  // }
+  modules: {
+    user
+  }
 
 })
 
