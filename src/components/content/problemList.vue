@@ -1,10 +1,30 @@
 <template>
   <div class="pro-list">
+    
     <p><i class="fa fa-question-circle"></i>问题列表</p>
     <!-- //内容 -->
-    <el-collapse v-model="activeNames" @change="handleChange">
-      <el-collapse-item v-for="(item,index) in dataList" :key="index" :title="item.title " :name="index">
-        <div>{{item.content}}</div>
+    <el-collapse v-model="activeNames" v-loading="loading"
+      element-loading-text="拼命加载中"
+      element-loading-spinner="el-icon-loading"
+      element-loading-background="rgba(0, 0, 0, 0.8)">
+
+      <el-collapse-item v-for="(item,index) in dataList" :key="index" :title="item.title" :name="index">
+        <img class="headpic" :src="imgSrc[item.uId]" >
+        <span class="petName">
+          {{petName[item.uId]}} 
+          <br>
+          <span class="updatetime">更新时间：{{moment(item.updateTime).format('YYYY-MM-DD HH:mm:ss')}}</span>
+        </span>
+        <care :uId="item.uId" v-if="item.uId != userinfo.id"/>
+        <div class="content">{{item.content}}</div>
+
+        <tagslike1 :qId="item.id"/>  
+        <div class="postcomment">
+          <el-input v-model="input" placeholder="在线评论"></el-input>
+          <input class="post-btn" type="button" @click="postComment(item.id)" value="评论" />
+        </div>
+        
+        <commentv1 :qId="item.id"></commentv1> 
       </el-collapse-item>
     </el-collapse>
     <!-- 分页栏 -->
@@ -20,74 +40,164 @@
         <li><a>共<i>{{ all }}</i>页</a></li>
       </ul>
     </div>
+    <div style="clear: both;"></div>  <!--清除浮动-->
   </div>
 </template>
 
 <script>
+  import moment from 'moment'//导入文件
+  import { mapState, mapMutations } from "vuex";
+  import tagslike1 from '@/components/content/tagsLike1'
+  import commentv1 from '@/components/content/commentv1'
+  import care from '@/components/content/care'
   export default {
     name: "problemList",
     data() {
       return {
+        input: '',   //评论
+        imgSrc: [],  //头像
+        petName: [],  //用户名
         //问题内容
-        dataList: [],
+        dataList: [],  //dataList相当于指针，是指向testList
+        testList: [],  
         titlename: "标题",
-        name: "1",
+        name: 0,
         contents: "我是内容",
-        activeNames: ['1'],
+        activeNames: [0,1,2,],
+        loading: true,
         //分页栏
         index: 1,  //用于循环每页的下标
-        all: 10,   //总页数
+        all: 5,   //总页数
         cur: 1,    //当前选中的页数
         tolalPage: 0,  //当前条数
+        moment,    //Json时间转换对象
+      }
+    },
+    props: {
+      qName: {
+        type: String,
+        default: '',
+      },
+      url: {
+        type: String,
+        default: "/question/query",
+      },
+      which: {
+        type: Number,
+        default: 0,
       }
     },
     components: {
-      
+      tagslike1,
+      commentv1,
+      care
     },
     methods: {
-      handleChange(val) {
-        console.log(val);
+      //提交一级评论
+      postComment(qId) {
+        if(this.$store.state.user.islogin) {
+          let obj = {
+            comment: this.input,
+            qId: qId,
+          }
+          this.$axios({
+            url: "/commentLv1/postCommentLv1",
+            method: "POST",
+            data: JSON.stringify(obj),
+          }).then(res => {
+              if(res.data.state == 200){
+                this.$message.error("评论成功！");
+              }
+            })
+        }
       },
-
-      // 向后台发送搜索信息数据
+      //获取问题列表
       dataListFn(index) {
-        let params = {
+        let params = [{
           current: index,       //第几页
           limit: 10,            //每页几条
-          qName: "",            //帖子/问题名字
+          qName: this.qName,    //问题标题名字
           sortType: 1,          //排序类型
           type: 1               //查询类型
-        }
+        },
+        {
+          current: index,
+          limit: 10,
+          type: 1,
+          uId: this.userinfo.id,
+        }];
+        console.log(this.url);
+        //请求问题列表
         this.$axios({
-          url: "/question/query",
+          url: this.url,
           method: "POST",
-          headers: {'Content-Type': 'application/json;charset=UTF-8'},
-          data: JSON.stringify(params),
+          data: JSON.stringify(params[this.which]),
         }).then((res) => {
           let data = res.data.data.data;  //请求到的问题数组
           if(res.data.state == 200){
-            this.dataList = data;
+            this.testList = data;
+
+            //请求问题列表中的每个用户的头像
+            for(let i=0; i<this.testList.length; i++){
+              this.$axios.all([this.$axios({
+                url: "/headPicture/getHeadPicture/"+ this.testList[i].uId,
+                method: "POST",
+              }), this.$axios({
+                url: "/user/getPetNameByUId/"+ this.testList[i].uId,
+                method: "GET",
+              })])
+              .then((res) => {
+                if(res[0].data.state == 200){
+                  this.imgSrc[this.testList[i].uId] = res[0].data.data.data;
+                }
+                if(res[1].data.state == 200){
+                  this.petName[this.testList[i].uId] = res[1].data.data.data.petName;
+                }
+              });
+            }
+            //防止异步操作先后导致起初图片无法显示
+            setInterval(()=>{
+              this.dataList = this.testList;   //dataList相当于指针，是指向testList!!!
+              this.loading = false;
+              clearInterval(this.timer);
+            },800);
+
+          }
+          else if(res.data.state == 403){
+            this.loading = false;
           }
         });
-      },
 
+      },
+      clearArray(){
+        this.dataList=[];
+        this.testList=[];
+        this.imgSrc=[];
+        this.petName=[];
+      },
       //直接点击页数换页，重新请求数据
       btnClick(data) {
         if(data != this.cur){
           this.cur = data;
         }
+        this.clearArray();
         this.dataListFn(this.cur);
       },
       //点击上一页/下一页换页，重新请求数据
       pageClick() {
+        this.clearArray();
         this.dataListFn(this.cur);
       },
-
     },
-  
     computed: {
+      ...mapState({
+        isclose: state => state.user.isclose,
+        islogin: state => state.user.islogin,
+        userinfo: state => state.user.userInfo,
+      }),
       //计算分页栏的点击选页
       indexs() {
+        this.clearArray();
         this.dataListFn(this.cur);
         var left = 1;
         var right = this.all;
@@ -118,76 +228,6 @@
   }
 </script>
 
-
-
 <style>
-  .pro-list {
-    width: 70%;
-    margin: 0 auto;
-    position: relative;
-    margin-top: 3em;
-  }
-  .pro-list p {
-    font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 28px;
-    margin: 2em 0 1em;
-  }
-  .pro-list .el-collapse-item__header{
-    font-size: 18px;
-    color: rgb(18, 18, 19);
-  }
-  .pro-list .el-collapse-item__content {
-    font-size: 14px;
-    color: rgb(75, 75, 80);
-    font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  }
-  .pro-list .pagebar {
-    float: right;
-  }
 
-  .pagebar {
-    margin:35px auto;
-    margin-bottom: 30px;
-    height: 40px;
-  }
-  .pagebar ul,li {
-    margin: 0px;
-    padding: 0px;
-    height: 38px;
-    display: inline;
-  }
-  li {
-    list-style: none;
-  }
-  .pagebar li:first-child>a {
-    margin-left: 0px;
-  }
-  .pagebar a {
-    border: 1px solid #ddd;
-    text-decoration: none;
-    position: relative;
-    padding: 7px 12px;
-    line-height: 1.42857143;
-    color: #5D6062;
-    cursor: pointer;
-    margin-right: 15px;
-  }
-  .pagebar a:hover {
-    background-color: #eee;
-  }
-  .pagebar a.banclick {
-    cursor:not-allowed;
-  }
-  .pagebar .active a {
-    color: #fff;
-    cursor: default;
-    background-color: #E96463;
-    border-color: #E96463;
-  }
-  .pagebar i {
-    font-style:normal;
-    color: #d44950;
-    margin: 0px 4px;
-    font-size: 12px;
-  }
 </style>

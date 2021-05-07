@@ -11,15 +11,27 @@
   border-radius: 8%;
   box-shadow: 0 5px 7px 0 rgba(104, 101, 101, 0.5);
 }
-.sign-in-box span{   
+.findpass {
+  position: relative;
+  margin: -35em 55%;
+  background-color: #ffffff80;
+  height: 300px;
+  width: 400px;
+  border-radius: 0;
+  box-shadow: 0 5px 7px 0 rgba(104, 101, 101, 0.5);
+}
+.sign-in-box .regiline , .sign-in-box .loginline{   
     text-align: center;
-    top: 15%;
+    top: 11%;
     position: relative;
     display: block;
     width: 100%;
     color: rgb(26, 22, 80); 
     font-size: 30px;
     margin-bottom: 5%;
+}
+.findpass span {
+  font-size: 25px;
 }
 .sign-in-box .regi, .sign-in-box .login{
   text-align: center;
@@ -34,6 +46,14 @@
   height: 40%;
   width: 100%;
   position: relative;
+}
+.findpass .in {
+  height: 45%;
+  top: 13%;
+}
+.findpass .get{
+  height: 20%;
+  
 }
 .in input{
   width: 70%;
@@ -51,6 +71,12 @@
 .in input:nth-child(2){
   top: 40%;
 }
+.in input:nth-child(3){
+  top: 60%;
+}
+.in input:nth-child(4){
+  top: 100%;
+}
 
 button{
   display: block;
@@ -64,11 +90,13 @@ button{
   left: 38%;
   position: absolute;
 }
+.findpass button {
+  bottom: 6%;
+}
 .sign-in-box .findpass,.sign-in-box .login{
   left: 22%;
   bottom: 20%;
   position: absolute;
-
   color: black; 
   font-size: 13px;
 }
@@ -79,7 +107,7 @@ button{
 /* 注册界面--------------------------------------------------- */
 .sign-in-box .regi{
   text-align: center;
-  top: 15%;
+  top: 13%;
   position: relative;
   display: block;
   width: 100%;
@@ -132,9 +160,23 @@ span.regiline{
   left: 68%;
   padding: 0;
   top: -8%;
+  font-size: 12px;
+}
+.findpass .sendver {
+  top: 5%;
 }
 .sign-in-box .agree{
   bottom: 15%;
+  position: absolute;
+  left: 20%;
+}
+.el-radio__input {
+  /* display: inline; */
+  width: 1em;
+  height: 1em;
+}
+.el-radio__input.is-checked + .el-radio__label {
+  color: black;
 }
 .regist{
   bottom: 5%;
