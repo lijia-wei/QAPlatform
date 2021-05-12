@@ -1,5 +1,5 @@
 <template>
-  <div class="tags">
+  <div class="tags" @click="iscollect">
     <div class="collect">
       <i class="fa fa-heart-o fa-5x animated swing"
          @click="colour"
@@ -14,7 +14,7 @@
       </i>
     </div>
 
-    <div class="like" @click="islike">
+    <div class="like" @click="islike" >
       <i class="fa fa-thumbs-o-up fa-5x"
          v-if="show2"
          @click="colour2">
@@ -36,7 +36,7 @@ export default {
   props: {
     qId: {
       type: Number,
-      default: ''
+      default: -1,
     },
   },
   data () {
@@ -44,7 +44,8 @@ export default {
       show: true,
       show2: true,
       fontclass: "",
-      fontclass2: ""
+      fontclass2: "",
+      collect: false,
     };
   },
 
@@ -53,9 +54,11 @@ export default {
       if (this.show) {
         this.show = false;
         this.fontclass = "hover";
+        this.collect = true;
       } else if (!this.show) {
         this.show = true;
         this.fontclass = "";
+        this.collect = false;
       }
     },
     colour2 () {
@@ -69,23 +72,78 @@ export default {
     },
     //点赞
     islike(){
+      if(this.$store.state.user.islogin) {
+        this.$axios({
+          url: "/question/support/"+this.qId,
+          method: "POST",
+          data: JSON.stringify(!this.show2),
+        }).then(res => {
+            if(res.data.state == 200){
+              if(!this.show2){
+                this.$message.success("点赞成功！");
+              }
+              else{
+                this.$message.success("取消点赞！");
+              }
+            }
+          })
+      }
+      else{
+        this.$message.error("请先登录！");
+        this.$router.replace({
+              path: "/login",
+            });
+      }
+    },
+
+    //页面初始加载
+    initialcollect() {
+      //请求问题列表
       this.$axios({
-        url: "/question/support/"+this.qId,
+        url: "/collection/ifCollection/"+this.qId,
         method: "POST",
-        data: JSON.stringify(!this.show2),
-      }).then(res => {
+      }).then((res) => {
+          let data = res.data.data.data;  
           if(res.data.state == 200){
-            if(!this.show2){
-              this.$message.success("点赞成功！");
-            }
-            else{
-              this.$message.success("取消点赞！");
-            }
+            this.collect = true; //收藏的时候
+            this.show = false;
+            this.fontclass = "hover";
+          }else{
+            this.collect = false;
+            this.show = true;
+            this.fontclass = "";
           }
         })
     },
+    //收藏
+    iscollect(){
+      if(this.$store.state.user.islogin) {
+        this.$axios({
+          url: "/collection/collectionUser/"+this.qId,
+          method: "POST",
+          data: JSON.stringify(this.collect),
+        }).then(res => {
+            if(res.data.state == 200){
+              if(this.collect){
+                this.$message.success("收藏成功！");
+              }
+              else{
+                this.$message.success("取消收藏！");
+              }
+            }
+          })
+      }
+      else{
+        this.$message.error("请先登录！");
+        this.$router.replace({
+              path: "/login",
+            });
+      }
+    },
   },
-
+  mounted(){
+    this.initialcollect();
+  }
 }
 </script>
 

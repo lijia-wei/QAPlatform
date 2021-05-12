@@ -4,8 +4,7 @@
     <mainav />
 
     <!-- Main Content -->
-    <problemList :url="requesturl" :which="1" />
-
+    <problemList :url="requesturl" :which="1" #default="{ qId }"><deletequestion :qId="qId"/></problemList>
     <!-- start of foot -->
     <foot />
   </div>
@@ -15,6 +14,7 @@
 import foot from "@/components/content/foot";
 import mainav from "@/components/content/mainav";
 import problemList from "@/components/content/problemList";
+import deletequestion from "@/components/content/delete";
 export default {
   name: "myquestions",
   data() {
@@ -27,8 +27,11 @@ export default {
     foot,
     mainav,
     problemList,
+    deletequestion
   },
-  methods: {},
+  methods: {
+
+  },
 };
 </script>
 

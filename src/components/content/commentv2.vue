@@ -10,13 +10,6 @@
         <span class="updatetime">{{moment(item.createTime).format('YYYY-MM-DD HH:mm:ss')}}</span>
       </span>
       <el-divider></el-divider>
-      <!-- 显示更多 -->
-      <el-dropdown @command="handleCommand">
-      <span class="el-dropdown-link">
-        显示更多<i class="el-icon-arrow-down el-icon--right"></i>
-      </span>
-      <el-dropdown-menu></el-dropdown-menu>
-    </el-dropdown>
     </div>
   </div>
 </template>
@@ -33,9 +26,7 @@ import moment from 'moment'//导入文件
         //问题内容
         dataList: [],  //dataList相当于指针，是指向testList
         testList: [],  
-        name: 0,
         contents: "我是内容",
-        activeNames: [0,1,2],
         loading: true,
         moment
       }
@@ -50,7 +41,7 @@ import moment from 'moment'//导入文件
     },
     methods: {
       //获取二级评论列表
-      dataListFn(index) {
+      dataListFn() {
         let params = {
           c1Id: this.c1Id,            //帖子/问题名字
         }
@@ -100,14 +91,7 @@ import moment from 'moment'//导入文件
         this.cimgSrc=[];
         this.petName=[];
       },
-      //直接点击页数换页，重新请求数据
-      btnClick(data) {
-        if(data != this.cur){
-          this.cur = data;
-        }
-        this.clearArray();
-        this.dataListFn(this.cur);
-      },
+
       handleCommand() {
 
       }
@@ -115,7 +99,7 @@ import moment from 'moment'//导入文件
     mounted(){
       //计算分页栏的点击选页
         this.clearArray();
-        this.dataListFn(1);
+        this.dataListFn();
     },
   }
 </script>

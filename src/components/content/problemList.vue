@@ -18,11 +18,11 @@
         <care :uId="item.uId" v-if="item.uId != userinfo.id"/>
         <div class="content">{{item.content}}</div>
 
+        <!-- 删除帖子 -->
+        <slot :qId="item.id"></slot>  
+        <!-- 一级点赞 -->
         <tagslike1 :qId="item.id"/>  
-        <div class="postcomment">
-          <el-input v-model="input" placeholder="在线评论"></el-input>
-          <input class="post-btn" type="button" @click="postComment(item.id)" value="评论" />
-        </div>
+        <postcom :qId="item.id"/>
         
         <commentv1 :qId="item.id"></commentv1> 
       </el-collapse-item>
@@ -47,6 +47,7 @@
 <script>
   import moment from 'moment'//导入文件
   import { mapState, mapMutations } from "vuex";
+  import postcom from '@/components/content/postcom_v1'
   import tagslike1 from '@/components/content/tagsLike1'
   import commentv1 from '@/components/content/commentv1'
   import care from '@/components/content/care'
@@ -90,27 +91,10 @@
     components: {
       tagslike1,
       commentv1,
-      care
+      care,
+      postcom
     },
     methods: {
-      //提交一级评论
-      postComment(qId) {
-        if(this.$store.state.user.islogin) {
-          let obj = {
-            comment: this.input,
-            qId: qId,
-          }
-          this.$axios({
-            url: "/commentLv1/postCommentLv1",
-            method: "POST",
-            data: JSON.stringify(obj),
-          }).then(res => {
-              if(res.data.state == 200){
-                this.$message.error("评论成功！");
-              }
-            })
-        }
-      },
       //获取问题列表
       dataListFn(index) {
         let params = [{

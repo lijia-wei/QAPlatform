@@ -14,7 +14,7 @@
       <el-divider></el-divider>
     </div>
     <!-- 显示更多 -->
-    <el-dropdown @command="handleCommand" v-if="this.dataList.length==10">
+    <el-dropdown @command="handleCommand" v-if="this.dataList.length%10 == 0 && this.dataList.length != 0" @click="btnClick()">
       <span class="el-dropdown-link">
         显示更多<i class="el-icon-arrow-down el-icon--right"></i>
       </span>
@@ -46,7 +46,7 @@ import tagslike2 from '@/components/content/tagsLike2'
     props: {
       qId: {
         type: Number,
-        default: ''
+        default: -1,
       }
     },
     components: {
@@ -67,9 +67,11 @@ import tagslike2 from '@/components/content/tagsLike2'
             data: JSON.stringify(obj),
           }).then(res => {
               if(res.data.state == 200){
-                this.$message.error("评论成功！");
+                this.$message.success("评论成功！");
               }
             })
+        }else{
+          this.$message.error("请先登录！");
         }
       },
       //获取一级评论列表
@@ -125,13 +127,12 @@ import tagslike2 from '@/components/content/tagsLike2'
         this.cimgSrc=[];
         this.petName=[];
       },
-      //直接点击页数换页，重新请求数据
+      //直接点击，重新请求数据显示更多
       btnClick(data) {
-        if(data != this.cur){
-          this.cur = data;
-        }
-        this.clearArray();
         this.dataListFn(this.cur);
+      },
+      showmore() {
+        
       },
       handleCommand() {
 
