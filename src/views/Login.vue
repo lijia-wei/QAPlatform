@@ -24,7 +24,7 @@
       <button @click="login" class="loginbtn">登录</button>
     </div>
     <div class="sign-in-box clearfix findpass" v-if="show">
-      <span>找 回 密 码</span>
+      <span  class="loginline">找 回 密 码</span>
       <div class="in">
         <input
           type="text"
@@ -159,8 +159,7 @@ export default {
     },
     sendVerify() {
       //发送验证码
-      if (this.e_mail == "") {
-        this.$message.error("请输入邮箱！");
+      if (this.e_mail != "") {
         this.$axios({
           url: "/email/sendEmail/findPasswordCode",
           method: "POST",
@@ -176,6 +175,8 @@ export default {
           .catch((e) => {
             this.$message.error(e);
           });
+      }else{
+        this.$message.error("请输入邮箱！");
       }
     },
     showfindback() {

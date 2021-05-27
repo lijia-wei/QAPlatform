@@ -74,8 +74,8 @@
 </template>
 
 <script>
-import foot from "@/components/content/foot";
-import mainav from "@/components/content/mainav";
+import foot from "@/components/common/foot";
+import mainav from "@/components/common/mainav";
 export default {
   name: "About",
   components: {

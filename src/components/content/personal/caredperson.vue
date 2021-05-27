@@ -9,7 +9,7 @@
       <el-row class="demo-avatar demo-basic">
           <el-col :span="12">
             <div class="demo-basic--circle">
-              <div class="block"><el-avatar :size="60" :src="imgsrc[tag.id]"></el-avatar></div>
+              <div class="block"><el-avatar :size="60" ><img :src="testsrc[tag.id]"></el-avatar></div>
             </div>
           </el-col>  
       </el-row>
@@ -25,6 +25,7 @@ export default {
     return {
       tags: [],
       imgsrc: [],
+      testsrc: [],
     }
   },
   props: {
@@ -38,7 +39,7 @@ export default {
         current: 1,
         limit: 10,
         type: this.type,
-        uId: 6
+        uId: this.$store.state.user.userInfo.id
       }
       this.$axios({
         url: "/care/select",
@@ -63,6 +64,9 @@ export default {
           else if(res.data.state == 403){
             this.loading = false;
           }
+          setInterval(()=>{
+            this.testsrc = this.imgsrc;
+          },800);
       })
     }
   },

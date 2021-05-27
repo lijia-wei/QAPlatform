@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import foot from "@/components/content/foot";
-import mainav from "@/components/content/mainav";
+import foot from "@/components/common/foot";
+import mainav from "@/components/common/mainav";
 import problemList from "@/components/content/problemList";
 import deletequestion from "@/components/content/delete";
 export default {
@@ -36,4 +36,5 @@ export default {
 </script>
 
 <style scoped>
+
 </style>

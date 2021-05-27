@@ -1,6 +1,5 @@
 <template>
   <div class="pro-list">
-    
     <p><i class="fa fa-question-circle"></i>问题列表</p>
     <!-- //内容 -->
     <el-collapse v-model="activeNames" v-loading="loading"
@@ -8,20 +7,20 @@
       element-loading-spinner="el-icon-loading"
       element-loading-background="rgba(0, 0, 0, 0.8)">
 
-      <el-collapse-item v-for="(item,index) in dataList" :key="index" :title="item.title" :name="index">
-        <img class="headpic" :src="imgSrc[item.uId]" >
+      <el-collapse-item v-for="(item,index) in dataTest" :key="index" :title="item.title" :name="index">
+        <img class="headpic" :src="imgSrc[19]" >
         <span class="petName">
-          {{petName[item.uId]}} 
+          {{petName[6]}} 
           <br>
           <span class="updatetime">更新时间：{{moment(item.updateTime).format('YYYY-MM-DD HH:mm:ss')}}</span>
         </span>
         <care :uId="item.uId" v-if="item.uId != userinfo.id"/>
         <div class="content">{{item.content}}</div>
-
+      
         <!-- 删除帖子 -->
         <slot :qId="item.id"></slot>  
         <!-- 一级点赞 -->
-        <tagslike1 :qId="item.id"/>  
+        <tagslike1 :qId="item.id"/>
         <postcom :qId="item.id"/>
         
         <commentv1 :qId="item.id"></commentv1> 
@@ -52,7 +51,7 @@
   import commentv1 from '@/components/content/commentv1'
   import care from '@/components/content/care'
   export default {
-    name: "problemList",
+    name: "collection",
     data() {
       return {
         input: '',   //评论
@@ -61,6 +60,7 @@
         //问题内容
         dataList: [],  //dataList相当于指针，是指向testList
         testList: [],  
+        dataTest: [],
         titlename: "标题",
         name: 0,
         contents: "我是内容",
@@ -74,20 +74,6 @@
         moment,    //Json时间转换对象
       }
     },
-    props: {
-      qName: {
-        type: String,
-        default: '',
-      },
-      url: {
-        type: String,
-        default: "/question/query",
-      },
-      which: {
-        type: Number,
-        default: 0,
-      }
-    },
     components: {
       tagslike1,
       commentv1,
@@ -97,65 +83,54 @@
     methods: {
       //获取问题列表
       dataListFn(index) {
-        let params = [{
-          current: index,       //第几页
-          limit: 10,            //每页几条
-          qName: this.qName,    //问题标题名字
-          sortType: 1,          //排序类型
-          type: 1               //查询类型
-        },
-        {
+        let params = {
           current: index,
           limit: 10,
           type: 1,
           uId: this.userinfo.id,
-        }];
-        console.log(this.url);
+        };
         //请求问题列表
         this.$axios({
-          url: this.url,
+          url: "/collection/select",
           method: "POST",
-          data: JSON.stringify(params[this.which]),
+          data: JSON.stringify(params),
         }).then((res) => {
           var data = res.data.data.data;  //请求到的问题数组
           if(res.data.state == 200){
             this.testList = data;
-            if(this.url == "/question/query" || this.url == "/collection/select"){
-              if(res.data.data.size%10 == 0){
-                this.all = parseInt(res.data.data.size/10);
-              }else{
-                this.all = parseInt(res.data.data.size/10+1);
-              }
+            if(res.data.data.size%10 == 0){
+              this.all = parseInt(res.data.data.size/10);
+            }else{
+              this.all = parseInt(res.data.data.size/10+1);
             }
-            else{
-              this.all = 1;
-            }
-
             //请求问题列表中的每个用户的头像
             for(let i=0; i<this.testList.length; i++){
               this.$axios.all([this.$axios({
-                url: "/headPicture/getHeadPicture/"+ this.testList[i].uId,
+                url: "/headPicture/getHeadPicture/"+ this.testList[i].question.uId,
                 method: "POST",
               }), this.$axios({
-                url: "/user/getPetNameByUId/"+ this.testList[i].uId,
+                url: "/user/getPetNameByUId/"+ this.testList[i].question.uId,
                 method: "GET",
               })])
               .then((res) => {
                 if(res[0].data.state == 200){
-                  this.imgSrc[this.testList[i].uId] = res[0].data.data.data;
+                  this.imgSrc[this.testList[i].question.uId] = res[0].data.data.data;
+                  
                 }
                 if(res[1].data.state == 200){
-                  this.petName[this.testList[i].uId] = res[1].data.data.data.petName;
+                  this.petName[this.testList[i].question.uId] = res[1].data.data.data.petName;
                 }
               });
             }
             //防止异步操作先后导致起初图片无法显示
             setInterval(()=>{
-              this.dataList = this.testList;   //dataList相当于指针，是指向testList!!!
+              for(let i=0; i<this.testList.length; i++){
+                this.dataTest[i] = this.testList[i].question;
+                
+              }
               this.loading = false;
               clearInterval(this.timer);
-            },800);
-
+            },1000);
           }
           else if(res.data.state == 403){
             this.loading = false;
@@ -167,8 +142,6 @@
       clearArray(){
         this.dataList=[];
         this.testList=[];
-        this.imgSrc=[];
-        this.petName=[];
       },
       //直接点击页数换页，重新请求数据
       btnClick(data) {

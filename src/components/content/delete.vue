@@ -30,6 +30,7 @@ export default {
         }).then((res) => {
             if(res.data.state == 200){
               this.$message.success("删除成功！");
+              location. reload();
             }
           })
       }
@@ -55,11 +56,17 @@ export default {
     width: 4em;
     height: 2em;
     background: rgb(255, 255, 255);
+    position: absolute;
+    top: 1em;
+    right: 1em;
   }
   .care .fa-user-plus {
     margin-left: 6px;
     font-size: 14px;
     font-weight: 400;
+  }
+  .care i{
+    margin-left: 0.5em;
   }
   .over {
     box-shadow: 1px 1px 2px rgb(102, 102, 102);

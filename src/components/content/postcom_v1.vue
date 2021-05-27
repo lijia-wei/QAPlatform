@@ -34,6 +34,7 @@ export default {
           }).then(res => {
               if(res.data.state == 200){
                 this.$message.success("评论成功！");
+                location.reload();
               }
             })
         }

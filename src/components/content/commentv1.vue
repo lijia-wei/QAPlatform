@@ -68,6 +68,7 @@ import tagslike2 from '@/components/content/tagsLike2'
           }).then(res => {
               if(res.data.state == 200){
                 this.$message.success("评论成功！");
+                
               }
             })
         }else{
@@ -115,7 +116,7 @@ import tagslike2 from '@/components/content/tagsLike2'
               this.dataList = this.testList;   //dataList相当于指针，是指向testList
               this.loading = false;
               clearInterval(this.timer);
-            },400);
+            },600);
 
           }
         });

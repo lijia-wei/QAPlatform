@@ -74,8 +74,9 @@
 </template>
 
 <script>
-import foot from "@/components/content/foot";
-import mainav from "@/components/content/mainav";
+import foot from "@/components/common/foot";
+import mainav from "@/components/common/mainav";
+import scrollup from "@/components/common/scrollup";
 import problemList from "@/components/content/problemList";
 
 export default {
@@ -96,6 +97,7 @@ export default {
     foot,
     mainav,
     problemList,
+    scrollup
   },
   mounted() {
     console.log(this.islogin);

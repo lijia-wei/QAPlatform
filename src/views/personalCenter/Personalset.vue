@@ -2,7 +2,7 @@
     
   <div class="setting">
     <!--  Start of Header  -->
-        <mainav />
+    <mainav />
     <div class="head">
       <div class="demo-avatar demo-basic el-row">
         <div class="el-col el-col-15">
@@ -23,23 +23,29 @@
           </div>
         </div>
       </div>
-      <div>petName</div>
+      <div class="petname">昵称：{{this.$store.state.user.userInfo.petName}}</div>
     </div>
     <!-- Main Content -->
     <div class="main">
       <el-tabs :tab-position="tabPosition">
-        <el-tab-pane label="信息设置"> 信息设置 </el-tab-pane>
+        <el-tab-pane label="信息设置"> 
+          信息设置 
+          <ownset />
+        </el-tab-pane>
+
         <el-tab-pane label="我的关注">
           我的关注
           <caredperson :type="2" />
         </el-tab-pane>
+
         <el-tab-pane label="粉丝"
           >粉丝
           <caredperson :type="1" />
         </el-tab-pane>
+
         <el-tab-pane label="我的收藏"
           >我的收藏
-          <problemList :url="requesturl" :which="1" />
+          <collection :url="requesturl" :which="1" />
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -50,10 +56,10 @@
 </template>
 
 <script>
-import foot from "@/components/content/foot";
-import mainav from "@/components/content/mainav";
+import foot from "@/components/common/foot";
+import mainav from "@/components/common/mainav";
 import caredperson from "@/components/content/personal/caredperson";
-import problemList from "@/components/content/problemList";
+import collection from "@/components/content/personal/collection";
 import ownset from "@/components/content/personal/ownset";
 
 export default {
@@ -71,7 +77,7 @@ export default {
     mainav,
     ownset,
     caredperson,
-    problemList,
+    collection,
   },
   methods: {
     changehead(e) {
@@ -104,29 +110,53 @@ export default {
         }
       });
     },
+    outback() {
+      //跳转主页
+      this.$router.replace({
+        path: "/",
+      });
+    }
   },
   created() {
     this.gethead();
+    if(!this.$store.state.user.islogin){
+      this.outback();
+    }
   },
 };
 </script>
 
 <style>
+
 .head {
+  background: url("../../assets/images/cool-background.png") no-repeat;
+  background-size: cover;
   width: 80%;
   margin: 2em auto 0.5em;
   font-size: 16px;
   border: solid #e4e7ed 1px;
+  height: 200px;
+  position: relative;
 }
 .head input {
   opacity: 0;
   display: block;
 }
 .head span {
-  height: 100px;
-  width: 100px;
-  line-height: 100px;
+  position: absolute;
+  left: 45%;
+  top: 30px;
+  height: 120px;
+  width: 120px;
+  line-height: 120px;
   background-size: cover;
+}
+.head .petname {
+  position: absolute;
+  left: 45%;
+  top: 80%;
+  color: white;
+  font-size: 18px;
 }
 .main {
   width: 80%;
@@ -141,4 +171,9 @@ export default {
 .el-row::before {
   display: table;
 }
+.el-tab-pane{
+  font-size: 20px;
+  margin: 1em 0;
+}
+
 </style>

@@ -21,6 +21,7 @@ const mutations = {
     CLOSE(state) {
         state.isclose = !state.isclose;
         sessionStorage.setItem('isclose', JSON.stringify(state.isclose));
+        
     },
     DELETE_USERINFO(state) {
         window.sessionStorage.removeItem('userInfo');

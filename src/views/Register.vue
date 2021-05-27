@@ -86,12 +86,11 @@ export default {
     },
     sendVerify() {
       //发送验证码
-      if (this.e_mail == "") {
-        this.$message.error("请输入邮箱！");
+      if (this.e_mail != "") {
         this.$axios({
           url: "/email/sendEmail/registerCode",
           method: "POST",
-          data: this.e_mail,
+          data: JSON.stringify(this.e_mail),
         })
           .then((res) => {
             let data = res.data;
@@ -105,6 +104,9 @@ export default {
           .catch((e) => {
             this.$message.error(e);
           });
+      }
+      else {
+        this.$message.error("请输入邮箱！");
       }
     },
 

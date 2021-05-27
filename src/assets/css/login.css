@@ -78,7 +78,7 @@
   top: 100%;
 }
 
-button{
+.login button, .register button{
   display: block;
   height: 9%;
   width: 26%;
@@ -89,6 +89,9 @@ button{
   bottom: 18%;
   left: 38%;
   position: absolute;
+}
+.register button{
+  bottom: 4%;
 }
 .findpass button {
   bottom: 6%;
@@ -153,9 +156,20 @@ span.regiline{
 .in-regi input:nth-child(5){
   top: 95%;
 }
+.get button {
+  display: block;
+  height: 115%;
+  width: 33%;
+  background-color: azure;
+  border: none;
+  font-size: 13px;
+  border-radius: 5px;
+  bottom: 18%;
+  left: 69%;
+  position: absolute;
+}
 .sendver{
   width:32%;
-  height: 115%;
   position: absolute;
   left: 68%;
   padding: 0;
@@ -163,7 +177,7 @@ span.regiline{
   font-size: 12px;
 }
 .findpass .sendver {
-  top: 5%;
+  top: 7%;
 }
 .sign-in-box .agree{
   bottom: 15%;
