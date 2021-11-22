@@ -37,6 +37,8 @@ export default {
                 location.reload();
               }
             })
+        }else{
+          this.$message.error("请先登录！");
         }
       },
   }

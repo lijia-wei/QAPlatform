@@ -68,7 +68,7 @@ import tagslike2 from '@/components/content/tagsLike2'
           }).then(res => {
               if(res.data.state == 200){
                 this.$message.success("评论成功！");
-                
+                location.reload();
               }
             })
         }else{

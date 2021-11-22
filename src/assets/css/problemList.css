@@ -119,6 +119,7 @@ li {
   font-size: 12px;
 }
 .care[data-v-6e340112] {
-  float: right;
+  position: absolute;
+  right: 2em;
   margin-top: -4em;
 }

@@ -72,13 +72,15 @@ import tagslike1 from "@/components/content/tagsLike1";
 import commentv1 from "@/components/content/commentv1";
 import care from "@/components/content/care";
 export default {
-  name: "problemList",
+  name: "problemList2",
   data() {
     return {
       input: "", //评论
       imgSrc: [], //头像
       petName: [], //用户名
-      dataList: [],
+      //问题内容
+      dataList: [], //dataList相当于指针，是指向testList
+      testList: [],
       titlename: "标题",
       name: 0,
       contents: "我是内容",
@@ -90,7 +92,7 @@ export default {
       cur: 1, //当前选中的页数
       tolalPage: 0, //当前条数
       moment, //Json时间转换对象
-    }
+    };
   },
   props: {
     qName: {
@@ -106,83 +108,86 @@ export default {
       default: 0,
     },
   },
-
   components: {
     tagslike1,
     commentv1,
     care,
     postcom,
   },
-
   methods: {
+    //获取问题列表
     dataListFn(index) {
-      new Promise((resolve,reject)=>{
-        let params = [
-          {
-            current: index, //第几页
-            limit: 10, //每页几条
-            qName: this.qName, //问题标题名字
-            sortType: 1, //排序类型
-            type: 1, //查询类型
-          },
-          {
-            current: index,
-            limit: 10,
-            type: 1,
-            uId: this.userinfo.id,
-          },
-        ];
-        this.$axios({
-          url: this.url,
-          method: "POST",
-          data: JSON.stringify(params[this.which]),
-        }).then((res) => {
-            resolve(res)
-          });
-
-      }).then(res=>{
-          var data = res.data.data.data; //请求到的问题数组
-          if (res.data.state == 200) {
-            this.dataList = data;
-            if (
-              this.url == "/question/query" ||
-              this.url == "/collection/select"
-            ) {
-              if (res.data.data.size % 10 == 0) {
-                this.all = parseInt(res.data.data.size / 10);
-              } else {
-                this.all = parseInt(res.data.data.size / 10 + 1);
-              }
+      let params = [
+        {
+          current: index, //第几页
+          limit: 10, //每页几条
+          qName: this.qName, //问题标题名字
+          sortType: 1, //排序类型
+          type: 1, //查询类型
+        },
+        {
+          current: index,
+          limit: 10,
+          type: 1,
+          uId: this.userinfo.id,
+        },
+      ];
+      console.log(this.url);
+      //请求问题列表
+      this.$axios({
+        url: this.url,
+        method: "POST",
+        data: JSON.stringify(params[this.which]),
+      }).then((res) => {
+        var data = res.data.data.data; //请求到的问题数组
+        if (res.data.state == 200) {
+          this.testList = data;
+          if (
+            this.url == "/question/query" ||
+            this.url == "/collection/select"
+          ) {
+            if (res.data.data.size % 10 == 0) {
+              this.all = parseInt(res.data.data.size / 10);
             } else {
-              this.all = 1;
+              this.all = parseInt(res.data.data.size / 10 + 1);
             }
+          } else {
+            this.all = 1;
           }
-          
-          return new Promise((resolve,reject)=>{
-            //发送第2次网络请求
-            for (let i = 0; i < this.dataList.length; i++) {
-              this.$axios.all([
+
+          //请求问题列表中的每个用户的头像
+          for (let i = 0; i < this.testList.length; i++) {
+            this.$axios
+              .all([
                 this.$axios({
-                  url: "/headPicture/getHeadPicture/" + this.dataList[i].uId,
+                  url: "/headPicture/getHeadPicture/" + this.testList[i].uId,
                   method: "POST",
                 }),
                 this.$axios({
-                  url: "/user/getPetNameByUId/" + this.dataList[i].uId,
+                  url: "/user/getPetNameByUId/" + this.testList[i].uId,
                   method: "GET",
                 }),
-              ]).then((res) => {
-                  if (res[0].data.state == 200) {
-                    this.imgSrc[this.dataList[i].uId] = res[0].data.data.data;
-                  }
-                  if (res[1].data.state == 200) {
-                    this.petName[this.dataList[i].uId] = res[1].data.data.data.petName;
-                  }
-                  this.loading = false;
-                });
-
-            }
-          })
-
+              ])
+              .then((res) => {
+                if (res[0].data.state == 200) {
+                  this.imgSrc[this.testList[i].uId] = res[0].data.data.data;
+                }
+                if (res[1].data.state == 200) {
+                  this.petName[this.testList[i].uId] =
+                    res[1].data.data.data.petName;
+                }
+              });
+          }
+          //防止异步操作先后导致起初图片无法显示
+          setInterval(() => {
+            this.dataList = this.testList; //dataList相当于指针，是指向testList!!!
+            this.loading = false;
+            clearInterval(this.timer);
+          }, 800);
+        } else if (res.data.state == 403) {
+          this.loading = false;
+          this.all = 0;
+        }
       });
     },
     clearArray() {
@@ -205,7 +210,6 @@ export default {
       this.dataListFn(this.cur);
     },
   },
-
   computed: {
     ...mapState({
       isclose: (state) => state.user.isclose,

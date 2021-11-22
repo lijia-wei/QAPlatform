@@ -64,7 +64,7 @@ export default {
         udId: this.uId,            //被评论的用户id
       }
       this.$axios({
-        url: "/commentLv2/postCommentLv2",
+        url: "/commentLv2/",
         method: "POST",
         data: JSON.stringify(obj),
       }).then(res => {

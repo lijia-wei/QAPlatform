@@ -8,11 +8,11 @@
             <section class="widget">
               <h3 class="title">网站主要功能</h3>
               <div class="textwidget">
-                <p>“OOO”是OOOO大学信息发布与交流平台，用户通过注册账号后就可以发布信息和评论，你可以在这里进行求助和帮助他人</p>
+                <p>西南石油大学信息发布与交流平台，用户通过注册账号后就可以发布信息和评论，你可以在这里进行求助和帮助他人。</p>
               </div>
               <h3 class="title">公告</h3>
               <div class="textwidget">
-                <p>禁止在本平台上发表不当言论 禁止出现辱骂他人的语言，一经发现进行封号处理</p>
+                <p>禁止在本平台上发表不当言论 禁止出现辱骂他人的语言，一经发现进行封号处理。</p>
               </div>
             </section>
           </div>
@@ -22,19 +22,11 @@
               <h3 class="title">友情链接</h3>
               <ul>
                 <li>
-                  <a href="#" title="Lorem ipsum dolor sit amet,">ooooo大学官网</a>
+                  <a href="https://www.swpu.edu.cn/" title="Lorem ipsum dolor sit amet,">西南石油大学官网</a>
                 </li>
                 <li>
-                  <a href="#" title="Lorem ipsum dolor sit amet,">OOOOO大学教务处</a>
+                  <a href="https://www.swpu.edu.cn/dean/" title="Lorem ipsum dolor sit amet,">西南石油大学教务处</a>
                 </li>
-                <li>
-                  <a
-                    href="http://www.guoang.xyz/"
-                    target="“_blank”"
-                    title="Lorem ipsum dolor sit amet,"
-                  >个人博客</a>
-                </li>
-             
               </ul>
             </section>
           </div>
@@ -82,13 +74,13 @@
                   style="color: #858585;"
                   href="http://www.miit.gov.cn/"
                   target="“_blank”"
-                >陕 ICP 备 19016483 号-1</a>
+                >川 ICP 备 66666666 号-1</a>
                 -
                 <a
                   style="color: #858585;"
-                  href="http://www..xyz/"
+                  href="https://www.swpu.edu.cn/"
                   target="“_blank”"
-                >www.guoang.xyz</a>
+                >https://www.swpu.edu.cn/</a>
               </p>
             </div>
           </div>

@@ -134,7 +134,6 @@ export default {
       })
         .then((res) => {
           let data = res.data.data;
-          alert(data);
           if (res.data.state == 200) {
             this.$message.success("注册成功请登录！");
             this.$router.push({ path: "/login" });

@@ -80,6 +80,7 @@ export default {
     width: 4em;
     height: 2em;
     background: rgb(255, 255, 255);
+    
   }
   .care .fa-user-plus {
     margin-left: 6px;

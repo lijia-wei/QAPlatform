@@ -4,7 +4,9 @@
     <mainav />
 
     <!-- Main Content -->
-    <problemList :url="requesturl" :which="1" #default="{ qId }"><deletequestion :qId="qId"/></problemList>
+    <problemList :url="requesturl" :which="1" #default="{ qId }">
+      <deletequestion :qId="qId"/>
+    </problemList>
     <!-- start of foot -->
     <foot />
   </div>
@@ -38,3 +40,4 @@ export default {
 <style scoped>
 
 </style>
+
